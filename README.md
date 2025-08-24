@@ -21,9 +21,8 @@
 
 ## 💼 Experience
 - **Scientist B, C-DOT (2023–Present)**  
-  - AI-driven Cyber Threat Intelligence System (deployed).  
-  - Firewall & Network Anomaly Detection (productionized).  
-  - Masqueraded Process Detection for malicious activity.  
+  - Firewall & Network Anomaly Detection (deployed).  
+  - Masqueraded Process Detection for malicious activity (deployed). 
 
 - **Project Trainee, C-DOT (2023)**  
   - Telecom Subscriber Prediction Model using Random Forest (deployed).  
