@@ -27,7 +27,7 @@ I’m a **Machine Learning Engineer** focused on building **reliable, production
   - Enabled analysts to query **PostgreSQL and OpenSearch** using plain English  
   - Used schema-aware prompting to generate structured queries  
   - Converted query results into **natural-language summaries** for faster investigations  
-- Built and deployed **endpoint network bytes anomaly detection pipelines**, analyzing per-process and per-host network behavior to identify suspicious activity at scale.
+- Built and deployed **endpoint network bytes anomaly detection pipelines**, analyzing per-host network behavior to identify suspicious activity at scale.
 - Developed a **masqueraded process detection system for Windows endpoints** using **rule-based techniques**:
   - Maintained a curated allowlist of legitimate system process paths  
   - Detected lookalike malicious binaries using **Levenshtein distance** on process names  
