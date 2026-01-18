@@ -23,14 +23,14 @@ I’m a **Machine Learning Engineer** focused on building **reliable, production
 ### **Machine Learning Engineer – Cybersecurity Analytics**  
 **Centre for Development of Telematics (C-DOT)** | Aug 2023 – Present  
 
-- Built and deployed **endpoint network bytes anomaly detection pipelines**, analyzing per-process and per-host network behavior to identify suspicious activity at scale.
-- Developed a **masqueraded process detection system for Windows endpoints** using **rule-based techniques**:
-  - Maintained a curated allowlist of legitimate system process paths  
-  - Detected lookalike malicious binaries using **Levenshtein distance** on process names  
 - Designed and implemented an **LLM-powered natural language query system** that:
   - Enabled analysts to query **PostgreSQL and OpenSearch** using plain English  
   - Used schema-aware prompting to generate structured queries  
   - Converted query results into **natural-language summaries** for faster investigations  
+- Built and deployed **endpoint network bytes anomaly detection pipelines**, analyzing per-process and per-host network behavior to identify suspicious activity at scale.
+- Developed a **masqueraded process detection system for Windows endpoints** using **rule-based techniques**:
+  - Maintained a curated allowlist of legitimate system process paths  
+  - Detected lookalike malicious binaries using **Levenshtein distance** on process names  
 - Owned **end-to-end pipelines**, including feature engineering, deployment, and monitoring in a Linux-based production environment.
 
 **Impact:** Systems deployed in a **national-scale cybersecurity environment**, supporting live threat detection and investigation workflows.
