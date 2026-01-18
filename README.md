@@ -32,7 +32,7 @@
 ## 🔬 Projects (Live Demos + Code)
 | Project | Tech Stack | Live Demo |
 |---------|------------|-----------|
-| **GenAI Resume Summarizer** | LangChain, OpenAI API, Streamlit | [Demo](http://192.168.1.9:8501](https://huggingface.co/spaces/TyzonAk/GEN-AI-RESUME-SUMMARIZER) |
+| **GenAI Resume Summarizer** | LangChain, OpenAI API, Streamlit | [Demo](https://huggingface.co/spaces/TyzonAk/GEN-AI-RESUME-SUMMARIZER) |
 | **Agentic Research Assistant** | LangChain, HuggingFace, FAISS, arXiv API | [Demo](#) |
 | **Masked Face Recognition** | PyTorch, GANs | [Demo](#) |
 | **Movie Recommender** | Python, Surprise, Streamlit | [Demo](#) |
