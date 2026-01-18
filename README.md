@@ -47,14 +47,12 @@ I’m a **Machine Learning Engineer** focused on building **reliable, production
 
 ## 🔬 Projects (Live Demos & Code)
 
-> Projects below are grouped to show **production depth first**, followed by **learning and experimentation**.
-
 ### 🧠 GenAI Resume Summarizer  
 **LangChain · OpenAI · Streamlit**  
 - Built an **LLM-powered document summarization system** with chunking and prompt constraints.
 - Added basic quality checks for output completeness and stability.
 - Deployed on Streamlit Cloud and HuggingFace Spaces.  
-🔗 **Live Demo:** https://huggingface.co/spaces/TyzonAk/GEN-AI-RESUME-SUMMARIZER  
+🔗 [Live Demo] (https://huggingface.co/spaces/TyzonAk/GEN-AI-RESUME-SUMMARIZER)  
 
 ---
 
@@ -63,7 +61,7 @@ I’m a **Machine Learning Engineer** focused on building **reliable, production
 - Developed an **autonomous research assistant** to fetch, embed, and summarize research papers.
 - Implemented **retrieval-augmented generation (RAG)** with modular agent design.
 - Focused on retrieval quality and scalable embedding pipelines.  
-🔗 **Live Demo:** *(add link if public)*
+🔗 **Live Demo:** *()*
 
 ---
 
@@ -71,7 +69,7 @@ I’m a **Machine Learning Engineer** focused on building **reliable, production
 **PyTorch · GANs**  
 - Implemented a GAN-based deep learning framework to improve face recognition under masked and occluded conditions.
 - Conducted controlled experiments on representation learning robustness.  
-🔗 **Demo:** *(optional)*
+🔗 **Demo:** *()*
 
 ---
 
@@ -79,7 +77,7 @@ I’m a **Machine Learning Engineer** focused on building **reliable, production
 **Python · Surprise · Streamlit**  
 - Built a collaborative filtering recommender system using the MovieLens dataset.
 - Implemented user-based and item-based recommendations with evaluation metrics.  
-🔗 **Live Demo:** *(your existing link)*
+🔗 **Live Demo:** *()*
 
 ---
 
@@ -87,7 +85,7 @@ I’m a **Machine Learning Engineer** focused on building **reliable, production
 **Python · Content & Collaborative Filtering**  
 - Developed recommendation models on a large food review dataset.
 - Explored hybrid approaches combining content and collaborative signals.  
-🔗 **Live Demo:** *(your existing link)*
+🔗 **Live Demo:** *()*
 
 ---
 
@@ -95,7 +93,7 @@ I’m a **Machine Learning Engineer** focused on building **reliable, production
 **PySpark · MLlib**  
 - Implemented cascade learning to transfer knowledge across multiple ML models.
 - Focused on scalability and distributed training using Spark.  
-🔗 **Demo:** *(optional)*
+🔗 **Demo:** *()*
 
 ---
 
