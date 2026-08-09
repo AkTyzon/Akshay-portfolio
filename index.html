@@ -89,10 +89,11 @@
 
   /* ---------- hero ---------- */
   .eyebrow{
-    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-faint);
-    margin-bottom: 20px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
+    letter-spacing: 0.13em; text-transform: uppercase; color: var(--text-faint);
+    text-align: right; line-height: 1.5; padding-top: 12px;
   }
+  @media (max-width: 900px){ .eyebrow{ text-align: left; padding-top: 0; } }
   h1.headline{
     font-size: clamp(2.1rem, 4.6vw, 3rem);
     line-height: 1.16; letter-spacing: -0.02em; margin-bottom: 20px;
@@ -133,13 +134,23 @@
   @keyframes ring{ 0%{transform:scale(.6);opacity:.6} 100%{transform:scale(1.9);opacity:0} }
   @media (prefers-reduced-motion: reduce){ .status-dot.ok::after{ animation:none } }
 
+  /* ---------- gutter rows: label left, prose right ---------- */
+  .row{
+    display: grid; grid-template-columns: 160px minmax(0,1fr); gap: 0 36px;
+    align-items: start;
+  }
+  @media (max-width: 900px){ .row{ grid-template-columns: 1fr; gap: 14px; } }
+
   /* ---------- sections ---------- */
-  section{ margin-top: 52px; }
+  section.row{
+    margin-top: 46px; padding-top: 30px; border-top: 1px solid var(--line);
+  }
   .sec-label{
     font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
     letter-spacing: 0.13em; text-transform: uppercase; color: var(--text-faint);
-    padding-bottom: 10px; margin-bottom: 26px; border-bottom: 1px solid var(--line);
+    text-align: right; line-height: 1.5; padding-top: 3px;
   }
+  @media (max-width: 900px){ .sec-label{ text-align: left; } }
 
   /* ---------- work entries ---------- */
   .work{ margin-bottom: 34px; }
@@ -207,10 +218,12 @@
   aside .links a{ font-family:'JetBrains Mono',monospace; font-size:12px; color: var(--text-dim); border-bottom:none; }
   aside .links a:hover{ color: var(--accent); }
 
-  footer{
-    margin-top: 56px; padding-top: 26px; border-top: 1px solid var(--line);
+  footer.row{
+    margin-top: 46px; padding-top: 30px; border-top: 1px solid var(--line);
+  }
+  .foot-body{
     font-family:'JetBrains Mono',monospace; font-size: 12px; color: var(--text-faint);
-    display:flex; flex-wrap:wrap; gap: 10px 22px;
+    display:flex; flex-wrap:wrap; gap: 10px 22px; padding-top: 3px;
   }
 
   ::-webkit-scrollbar{ width:10px; height:10px; }
@@ -222,7 +235,9 @@
 <body>
 <div class="shell">
   <main>
-    <div class="eyebrow">Akshay Kaushik</div>
+    <div class="row">
+      <div class="eyebrow">Akshay Kaushik</div>
+      <div>
     <h1 class="headline">Machine learning engineer building LLM systems that hold up in production.</h1>
     <p class="lede">
       Three years at C-DOT building retrieval and agent systems for security operations —
@@ -237,9 +252,12 @@
       <a class="btn ghost" href="mailto:2021pcs1016@iitjammu.ac.in">Get in touch</a>
       <span class="status-note"><span class="status-dot" id="sdot"></span><span id="stext">checking deployment…</span></span>
     </div>
+      </div>
+    </div>
 
-    <section>
+    <section class="row">
       <div class="sec-label">Selected work</div>
+      <div class="sec-body">
 
       <div class="work">
         <div class="work-top">
@@ -315,10 +333,12 @@
           so staff can verify what they're told instead of taking a generated answer on trust.
         </p>
       </div>
+      </div>
     </section>
 
-    <section>
+    <section class="row">
       <div class="sec-label">How I work</div>
+      <div class="sec-body">
 
       <div class="note-card">
         <h3>I assume the model is lying until the data says otherwise</h3>
@@ -354,12 +374,16 @@
         </p>
         <div class="outcome">Verified by a fixed benchmark diffed before and after every change, so quality is measured rather than assumed.</div>
       </div>
+      </div>
     </section>
 
-    <footer>
-      <span>2021pcs1016@iitjammu.ac.in</span>
-      <span>+91-9876635806</span>
-      <span>Punjab, India</span>
+    <footer class="row">
+      <div class="sec-label">Contact</div>
+      <div class="foot-body">
+        <span>2021pcs1016@iitjammu.ac.in</span>
+        <span>+91-9876635806</span>
+        <span>Punjab, India</span>
+      </div>
     </footer>
   </main>
 
