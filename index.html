@@ -45,426 +45,606 @@
 
   :root{
     color-scheme: light;
-    --bg: #f4f5f2;
-    --bg-raised: #ffffff;
-    --bg-inset: #eaece7;
-    --line: #d7ddd5;
-    --line-soft: #e4e8e1;
-    --text: #16241d;
-    --text-dim: #47564b;
-    --text-faint: #7c8a80;
+    --bg: #f5f6f3;
+    --surface: #ffffff;
+    --ink: #0e1a14;
+    --ink-soft: #17281f;
+    --line: #dde3da;
+    --line-soft: #e8ece5;
+    --text: #15231c;
+    --text-dim: #4a584e;
+    --text-faint: #7d8b81;
     --accent: #0d6b54;
-    --accent-soft: #e6f2ec;
-    --accent-line: #b9d8ca;
-    --shadow: 0 1px 2px rgba(22,36,29,0.04), 0 8px 24px rgba(22,36,29,0.06);
+    --accent-bright: #35b48f;
+    --accent-soft: #e7f3ed;
+    --accent-line: #b7dbca;
+    --on-dark: #e9efea;
+    --on-dark-dim: #9aab9f;
+    --shadow-sm: 0 1px 2px rgba(14,26,20,.05);
+    --shadow: 0 2px 4px rgba(14,26,20,.04), 0 12px 32px rgba(14,26,20,.07);
+    --shadow-lg: 0 4px 8px rgba(14,26,20,.05), 0 24px 60px rgba(14,26,20,.10);
   }
 
-  *{box-sizing:border-box; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
-  html,body{margin:0; padding:0; background:var(--bg); color:var(--text); overflow-x:hidden;}
+  *{box-sizing:border-box;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  html{scroll-behavior:smooth;}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);overflow-x:hidden;}
+  body{font-family:'Source Serif 4',Charter,Georgia,serif;font-size:17px;line-height:1.65;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
 
-  body{
-    font-family: 'Source Serif 4', Charter, Georgia, serif;
-    font-size: 17.5px;
-    line-height: 1.66;
+  h1,h2,h3,h4{margin:0;color:inherit;text-wrap:balance;font-weight:600;}
+  a{color:var(--accent);text-decoration:none;}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px;}
+  ul{margin:0;padding:0;list-style:none;}
+  ::selection{background:var(--accent-soft);}
+
+  .mono{font-family:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 32px;}
+  @media (max-width:640px){ .wrap{padding:0 20px;} }
+
+  /* ============ NAV ============ */
+  .nav{
+    position:sticky;top:0;z-index:60;
+    background:rgba(245,246,243,.82);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--line);
   }
-
-  h1,h2,h3{ margin:0; color: var(--text); text-wrap: balance; }
-  h1{ font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; }
-  h2,h3{ font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; }
-
-  a{ color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-line); }
-  a:hover{ border-bottom-color: var(--accent); }
-  a:focus-visible, button:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
-  ::selection{ background: var(--accent-soft); }
-
-  .mono{ font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; }
-
-  /* ---------- shell ---------- */
-  .shell{
-    max-width: 1180px; margin: 0 auto;
-    display: grid; grid-template-columns: minmax(0,1fr) 244px; gap: 64px;
-    padding: 56px 32px 80px; align-items: stretch;
+  .nav-in{
+    max-width:1180px;margin:0 auto;padding:0 32px;height:64px;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
   }
-  @media (max-width: 900px){ .shell{ grid-template-columns: 1fr; gap: 36px; padding: 40px 22px 64px; } }
-
-  /* ---------- hero ---------- */
-  .eyebrow{
-    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
-    letter-spacing: 0.13em; text-transform: uppercase; color: var(--text-faint);
-    text-align: right; line-height: 1.5; padding-top: 12px;
+  .nav-name{
+    font-family:'JetBrains Mono',monospace;font-size:13.5px;font-weight:700;
+    letter-spacing:-.01em;color:var(--text);
   }
-  @media (max-width: 900px){ .eyebrow{ text-align: left; padding-top: 0; } }
-  h1.headline{
-    font-size: clamp(2.1rem, 4.6vw, 3rem);
-    line-height: 1.16; letter-spacing: -0.02em; margin-bottom: 20px;
+  .nav-links{display:flex;align-items:center;gap:28px;}
+  .nav-links a{
+    font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--text-dim);
+    padding:4px 0;border-bottom:1.5px solid transparent;transition:color .15s,border-color .15s;
   }
-  p.lede{ max-width: 60ch; color: var(--text-dim); font-size: 1.12rem; margin: 0; }
+  .nav-links a:hover{color:var(--accent);border-bottom-color:var(--accent-line);}
+  .nav-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:8px 15px;border-radius:7px;background:var(--accent);color:#fff!important;
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+    border-bottom:none!important;transition:transform .15s,box-shadow .15s;
+  }
+  .nav-cta:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(13,107,84,.28);}
+  @media (max-width:760px){ .nav-links .hide-sm{display:none;} .nav-in{height:58px;} }
 
-  .cta-row{ display:flex; flex-wrap:wrap; gap: 12px; margin-top: 30px; align-items:center; }
+  /* ============ SECTION BANDS ============ */
+  .band{padding:92px 0;}
+  .band-alt{background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+  .band-dark{background:var(--ink);color:var(--on-dark);}
+  section[id]{scroll-margin-top:76px;}
+  @media (max-width:640px){ .band{padding:64px 0;} }
+
+  .sec-head{margin-bottom:44px;max-width:62ch;}
+  .sec-kicker{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+    letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;
+  }
+  .band-dark .sec-kicker{color:var(--accent-bright);}
+  .sec-head h2{font-size:clamp(1.7rem,3.2vw,2.3rem);letter-spacing:-.022em;line-height:1.22;}
+  .sec-head p{margin:14px 0 0;color:var(--text-dim);font-size:1.06rem;}
+  .band-dark .sec-head p{color:var(--on-dark-dim);}
+
+  /* ============ HERO ============ */
+  .hero{
+    padding:104px 0 88px;
+    background:
+      radial-gradient(900px 480px at 78% -12%, rgba(13,107,84,.10), transparent 62%),
+      radial-gradient(circle, rgba(14,26,20,.055) 1px, transparent 1px);
+    background-size:auto, 24px 24px;
+  }
+  @media (max-width:640px){ .hero{padding:64px 0 56px;} }
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:64px;align-items:center;}
+  @media (max-width:940px){ .hero-grid{grid-template-columns:1fr;gap:44px;} }
+
+  .hero-tag{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:6px 14px;border-radius:999px;background:var(--surface);
+    border:1px solid var(--accent-line);
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:600;color:var(--text-dim);
+    margin-bottom:26px;box-shadow:var(--shadow-sm);
+  }
+  h1.hero-h1{font-size:clamp(2.3rem,5vw,3.5rem);line-height:1.1;letter-spacing:-.032em;}
+  .hero-sub{margin:24px 0 0;color:var(--text-dim);font-size:1.14rem;max-width:54ch;}
+  .hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px;}
   .btn{
-    display:inline-flex; align-items:center; gap: 9px;
-    padding: 11px 20px; border-radius: 7px;
-    font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600;
-    border: 1px solid var(--accent); background: var(--accent); color: #fff;
-    transition: transform .14s ease, box-shadow .14s ease;
+    display:inline-flex;align-items:center;gap:9px;padding:12px 22px;border-radius:8px;
+    font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;
+    border:1px solid var(--accent);background:var(--accent);color:#fff;
+    transition:transform .15s,box-shadow .15s;
   }
-  .btn:hover{ transform: translateY(-1px); box-shadow: 0 5px 16px rgba(13,107,84,0.24); border-bottom-color: var(--accent); }
-  .btn.ghost{
-    background: var(--bg-raised); color: var(--text); border-color: var(--line);
-  }
-  .btn.ghost:hover{ border-color: var(--accent-line); box-shadow: var(--shadow); }
-  .btn .dot{
-    width:7px; height:7px; border-radius:50%; background: currentColor; opacity: .85; flex-shrink: 0;
-  }
-  .btn .dot.live{ background: #7ee0b8; opacity: 1; }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(13,107,84,.26);}
+  .btn.ghost{background:var(--surface);color:var(--text);border-color:var(--line);}
+  .btn.ghost:hover{border-color:var(--accent-line);box-shadow:var(--shadow);}
 
-  .status-note{
-    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-faint);
-    display:flex; align-items:center; gap: 8px;
+  /* live console card */
+  .console{
+    background:var(--ink);border-radius:13px;overflow:hidden;
+    box-shadow:var(--shadow-lg);border:1px solid rgba(255,255,255,.07);
   }
-  .status-dot{
-    position:relative; width:7px; height:7px; border-radius:50%; background: var(--text-faint); flex-shrink:0;
+  .console-bar{
+    display:flex;align-items:center;gap:9px;padding:12px 16px;
+    background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.08);
   }
-  .status-dot.ok{ background: #1c7a49; }
-  .status-dot.ok::after{
-    content:''; position:absolute; inset:-3px; border-radius:50%;
-    border:1px solid #1c7a49; opacity:.5; animation: ring 2.2s ease-out infinite;
+  .console-bar .lights{display:flex;gap:6px;}
+  .console-bar .lights i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.16);display:block;}
+  .console-bar .path{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--on-dark-dim);margin-left:4px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
   }
-  .status-dot.err{ background: #a53d3d; }
-  @keyframes ring{ 0%{transform:scale(.6);opacity:.6} 100%{transform:scale(1.9);opacity:0} }
-  @media (prefers-reduced-motion: reduce){ .status-dot.ok::after{ animation:none } }
+  .console-body{padding:18px 18px 20px;font-family:'JetBrains Mono',monospace;font-size:12.5px;}
+  .cline{display:flex;gap:10px;margin-bottom:9px;}
+  .cline .ck{color:var(--on-dark-dim);min-width:74px;flex-shrink:0;}
+  .cline .cv{color:var(--on-dark);word-break:break-word;}
+  .cline .cv.good{color:var(--accent-bright);font-weight:600;}
+  .cline .cv.bad{color:#e08a8a;}
+  .console-foot{
+    margin-top:15px;padding-top:14px;border-top:1px solid rgba(255,255,255,.09);
+    display:flex;flex-wrap:wrap;gap:8px;
+  }
+  .cpill{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 9px;border-radius:5px;
+    background:rgba(255,255,255,.06);color:var(--on-dark-dim);border:1px solid rgba(255,255,255,.08);
+  }
+  .live-dot{position:relative;width:8px;height:8px;border-radius:50%;background:var(--text-faint);flex-shrink:0;}
+  .live-dot.ok{background:var(--accent-bright);}
+  .live-dot.ok::after{
+    content:'';position:absolute;inset:-4px;border-radius:50%;
+    border:1.5px solid var(--accent-bright);opacity:.55;animation:ping 2.2s ease-out infinite;
+  }
+  .live-dot.bad{background:#e08a8a;}
+  @keyframes ping{0%{transform:scale(.6);opacity:.6}100%{transform:scale(2);opacity:0}}
+  @media (prefers-reduced-motion:reduce){.live-dot.ok::after{animation:none}}
 
-  /* ---------- gutter rows: label left, prose right ---------- */
-  .row{
-    display: grid; grid-template-columns: 160px minmax(0,1fr); gap: 0 36px;
-    align-items: start;
+  /* ============ STATS ============ */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:36px;}
+  @media (max-width:820px){ .stats{grid-template-columns:repeat(2,1fr);gap:30px;} }
+  .stat .n{
+    font-family:'JetBrains Mono',monospace;font-size:clamp(1.7rem,3.4vw,2.3rem);font-weight:700;
+    color:var(--accent-bright);letter-spacing:-.03em;display:block;line-height:1.1;
   }
-  @media (max-width: 900px){ .row{ grid-template-columns: 1fr; gap: 14px; } }
-
-  /* ---------- sections ---------- */
-  section.row{
-    margin-top: 46px; padding-top: 30px; border-top: 1px solid var(--line);
-  }
-  .sec-label{
-    font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600;
-    letter-spacing: 0.13em; text-transform: uppercase; color: var(--text-faint);
-    text-align: right; line-height: 1.5; padding-top: 3px;
-  }
-  @media (max-width: 900px){ .sec-label{ text-align: left; } }
-
-  /* ---------- work entries ---------- */
-  .work{ margin-bottom: 34px; }
-  .work:last-child{ margin-bottom: 0; }
-  .work-top{ display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap: 8px 16px; }
-  .work h3{ font-size: 1.25rem; letter-spacing: -0.01em; }
-  .work .where{ font-family:'JetBrains Mono',monospace; font-size:11.5px; color: var(--text-faint); }
-  .work .stack{
-    font-family:'JetBrains Mono',monospace; font-size:11.5px; color: var(--text-faint);
-    margin-top: 7px; line-height: 1.75;
-  }
-  .work p.what{ margin: 12px 0 0; color: var(--text-dim); }
-  .work ul{ margin: 12px 0 0; padding-left: 1.15em; }
-  .work ul li{ margin-bottom: 8px; color: var(--text-dim); }
-  .work ul li::marker{ color: var(--accent-line); }
-  .work b{ color: var(--text); font-weight: 600; }
-
-  .badge-live{
-    display:inline-flex; align-items:center; gap:7px;
-    padding: 4px 11px; border-radius: 999px;
-    background: var(--accent-soft); border: 1px solid var(--accent-line);
-    font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600;
-    color: var(--accent); text-transform: uppercase; letter-spacing: 0.07em;
+  .stat .l{
+    display:block;margin-top:9px;font-size:13px;color:var(--on-dark-dim);line-height:1.5;
   }
 
-  .worklinks{ margin-top: 14px; display:flex; flex-wrap:wrap; gap: 18px; }
-  .worklinks a{ font-family:'JetBrains Mono',monospace; font-size:12.5px; }
+  /* ============ WORK CARDS ============ */
+  .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}
+  @media (max-width:860px){ .cards{grid-template-columns:1fr;} }
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:13px;
+    padding:28px;display:flex;flex-direction:column;
+    transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:var(--shadow);border-color:var(--accent-line);}
+  .card.feature{grid-column:1 / -1;}
+  @media (min-width:861px){
+    .card.feature{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start;}
+  }
+  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:12px;}
+  .card h3{font-size:1.2rem;letter-spacing:-.015em;line-height:1.3;}
+  .card .org{
+    font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint);
+    white-space:nowrap;padding-top:5px;
+  }
+  .tag-live{
+    display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;
+    background:var(--accent-soft);border:1px solid var(--accent-line);
+    font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;
+    color:var(--accent);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;
+  }
+  .card .desc{color:var(--text-dim);font-size:.99rem;margin:0 0 16px;}
+  .card ul li{
+    position:relative;padding-left:19px;margin-bottom:9px;color:var(--text-dim);font-size:.95rem;line-height:1.6;
+  }
+  .card ul li::before{
+    content:'';position:absolute;left:0;top:.62em;width:6px;height:6px;border-radius:50%;
+    background:var(--accent-line);
+  }
+  .card b{color:var(--text);font-weight:600;}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;}
+  .chip{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;padding:4px 9px;border-radius:5px;
+    background:var(--bg);border:1px solid var(--line);color:var(--text-dim);
+  }
+  .card-links{display:flex;flex-wrap:wrap;gap:18px;margin-top:20px;}
+  .card-links a{
+    font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;
+    border-bottom:1px solid var(--accent-line);padding-bottom:1px;
+  }
+  .card-links a:hover{border-bottom-color:var(--accent);}
 
-  /* ---------- engineering notes ---------- */
-  .note-card{
-    background: var(--bg-raised); border: 1px solid var(--line); border-radius: 9px;
-    padding: 20px 22px; margin-bottom: 14px; box-shadow: var(--shadow);
+  /* ============ APPROACH ============ */
+  .appr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;}
+  @media (max-width:900px){ .appr{grid-template-columns:1fr;} }
+  .appr-card{
+    background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.09);
+    border-radius:13px;padding:26px;
   }
-  .note-card:last-child{ margin-bottom: 0; }
-  .note-card h3{ font-size: 1.02rem; margin-bottom: 8px; }
-  .note-card p{ margin: 0; color: var(--text-dim); font-size: 0.97rem; }
-  .note-card p + p{ margin-top: 9px; }
-  .note-card .outcome{
-    font-family:'JetBrains Mono',monospace; font-size: 12px; color: var(--accent);
-    margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--line-soft);
+  .appr-num{
+    font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;
+    color:var(--accent-bright);letter-spacing:.1em;margin-bottom:14px;
   }
-
-  /* ---------- sidebar ---------- */
-  aside{ align-self: stretch; }
-  .aside-inner{
-    position: sticky; top: 32px;
-    display:flex; flex-direction:column; gap: 24px;
-  }
-  @media (max-width: 900px){ .aside-inner{ position:static; } }
-  aside .grp h4{
-    font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600;
-    letter-spacing:0.13em; text-transform:uppercase; color: var(--text-faint);
-    margin: 0 0 12px; padding-bottom: 9px; border-bottom: 1px solid var(--line);
-  }
-  aside .item{ margin-bottom: 13px; }
-  aside .item:last-child{ margin-bottom: 0; }
-  aside .item .t{ font-size: 14px; color: var(--text); font-weight: 600; line-height: 1.4; }
-  aside .item .s{ font-family:'JetBrains Mono',monospace; font-size:11px; color: var(--text-faint); margin-top: 3px; line-height:1.6; }
-  aside .chips{ display:flex; flex-wrap:wrap; gap:5px; }
-  aside .chip{
-    font-family:'JetBrains Mono',monospace; font-size:10.5px; padding: 3px 8px;
-    background: var(--bg-raised); border:1px solid var(--line); border-radius: 5px; color: var(--text-dim);
-  }
-  aside .links{ display:flex; flex-direction:column; gap:9px; }
-  aside .links a{ font-family:'JetBrains Mono',monospace; font-size:12px; color: var(--text-dim); border-bottom:none; }
-  aside .links a:hover{ color: var(--accent); }
-
-  footer.row{
-    margin-top: 46px; padding-top: 30px; border-top: 1px solid var(--line);
-  }
-  .foot-body{
-    font-family:'JetBrains Mono',monospace; font-size: 12px; color: var(--text-faint);
-    display:flex; flex-wrap:wrap; gap: 10px 22px; padding-top: 3px;
+  .appr-card h3{font-size:1.06rem;line-height:1.35;margin-bottom:11px;color:var(--on-dark);}
+  .appr-card p{margin:0;color:var(--on-dark-dim);font-size:.94rem;line-height:1.62;}
+  .appr-card .res{
+    margin-top:14px;padding-top:13px;border-top:1px solid rgba(255,255,255,.09);
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--accent-bright);line-height:1.55;
   }
 
-  ::-webkit-scrollbar{ width:10px; height:10px; }
-  ::-webkit-scrollbar-track{ background: var(--bg); }
-  ::-webkit-scrollbar-thumb{ background: var(--line); border-radius:5px; }
+  /* ============ ABOUT / SIDE FACTS ============ */
+  .facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;}
+  @media (max-width:900px){ .facts{grid-template-columns:1fr;} }
+  .fact{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:26px;}
+  .fact h4{
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:700;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--text-faint);margin-bottom:16px;
+    padding-bottom:12px;border-bottom:1px solid var(--line-soft);
+  }
+  .fact .row{margin-bottom:14px;}
+  .fact .row:last-child{margin-bottom:0;}
+  .fact .t{font-size:15px;font-weight:600;color:var(--text);line-height:1.4;}
+  .fact .s{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint);margin-top:4px;line-height:1.6;}
+
+  /* ============ CONTACT ============ */
+  .contact-in{text-align:center;max-width:620px;margin:0 auto;}
+  .contact-in h2{font-size:clamp(1.8rem,3.6vw,2.5rem);letter-spacing:-.025em;line-height:1.2;}
+  .contact-in p{margin:18px 0 0;color:var(--on-dark-dim);font-size:1.07rem;}
+  .contact-btns{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:32px;}
+  .btn.on-dark{background:var(--accent-bright);border-color:var(--accent-bright);color:#08201a;}
+  .btn.on-dark:hover{box-shadow:0 8px 24px rgba(53,180,143,.3);}
+  .btn.outline-dark{
+    background:transparent;color:var(--on-dark);border-color:rgba(255,255,255,.22);
+  }
+  .btn.outline-dark:hover{border-color:var(--accent-bright);box-shadow:none;}
+
+  /* ============ FOOTER ============ */
+  .foot{
+    border-top:1px solid var(--line);padding:28px 0;
+    font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--text-faint);
+  }
+  .foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 24px;}
+
+  ::-webkit-scrollbar{width:11px;height:11px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px;}
+  ::-webkit-scrollbar-thumb:hover{background:var(--text-faint);}
 
 </style>
 </head>
 <body>
-<div class="shell">
-  <main>
-    <div class="row">
-      <div class="eyebrow">Akshay Kaushik</div>
-      <div>
-    <h1 class="headline">Machine learning engineer building LLM systems that hold up in production.</h1>
-    <p class="lede">
-      Three years at C-DOT building retrieval and agent systems for security operations —
-      natural-language querying over live production data, anomaly detection across millions of
-      daily events, and the evaluation tooling to prove any of it actually works.
-    </p>
-
-    <div class="cta-row">
-      <a class="btn" href="https://136-64-84-253.sslip.io/" target="_blank" rel="noopener">
-        <span class="dot live"></span>Open the live platform
+<nav class="nav">
+  <div class="nav-in">
+    <span class="nav-name">Akshay Kaushik</span>
+    <div class="nav-links">
+      <a href="#work" class="hide-sm">Work</a>
+      <a href="#approach" class="hide-sm">Approach</a>
+      <a href="#about" class="hide-sm">About</a>
+      <a class="nav-cta" href="https://136-64-84-253.sslip.io/" target="_blank" rel="noopener">
+        <span class="live-dot ok"></span>Live demo
       </a>
-      <a class="btn ghost" href="mailto:2021pcs1016@iitjammu.ac.in">Get in touch</a>
-      <span class="status-note"><span class="status-dot" id="sdot"></span><span id="stext">checking deployment…</span></span>
     </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="hero-tag">Machine Learning Engineer · Scientist B at C-DOT</span>
+        <h1 class="hero-h1">I build LLM systems that hold up in production.</h1>
+        <p class="hero-sub">
+          Retrieval and agent systems for security operations — natural-language querying over live
+          production data, anomaly detection across millions of daily events, and the evaluation
+          tooling to prove any of it actually works.
+        </p>
+        <div class="hero-btns">
+          <a class="btn" href="#work">See the work</a>
+          <a class="btn ghost" href="mailto:2021pcs1016@iitjammu.ac.in">Get in touch</a>
+        </div>
+      </div>
+
+      <div class="console">
+        <div class="console-bar">
+          <span class="lights"><i></i><i></i><i></i></span>
+          <span class="path">GET 136-64-84-253.sslip.io:8443</span>
+        </div>
+        <div class="console-body">
+          <div class="cline"><span class="ck">status</span><span class="cv" id="c-status">connecting…</span></div>
+          <div class="cline"><span class="ck">service</span><span class="cv" id="c-svc">—</span></div>
+          <div class="cline"><span class="ck">env</span><span class="cv" id="c-env">—</span></div>
+          <div class="cline"><span class="ck">routes</span><span class="cv" id="c-routes">—</span></div>
+          <div class="console-foot">
+            <span class="cpill">FastAPI</span>
+            <span class="cpill">PostgreSQL</span>
+            <span class="cpill">Qdrant</span>
+            <span class="cpill">Docker</span>
+            <span class="cpill">GCP</span>
+            <span class="cpill">TLS</span>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+</header>
 
-    <section class="row">
-      <div class="sec-label">Selected work</div>
-      <div class="sec-body">
+<section class="band band-dark">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat">
+        <span class="n">5M+</span>
+        <span class="l">events per endpoint per day feeding detection pipelines</span>
+      </div>
+      <div class="stat">
+        <span class="n">30%</span>
+        <span class="l">fewer false-positive security alerts after tuning</span>
+      </div>
+      <div class="stat">
+        <span class="n">~1,700</span>
+        <span class="l">schema fields resolved at runtime, none hardcoded</span>
+      </div>
+      <div class="stat">
+        <span class="n">3.5×</span>
+        <span class="l">faster worst-case agent queries, 232s down to 66s</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="work">
-        <div class="work-top">
-          <h3>EvalForge — LLM evaluation platform</h3>
-          <span class="badge-live"><span class="status-dot ok"></span>Live</span>
+<section class="band" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">Selected work</div>
+      <h2>Systems I designed, shipped and kept running.</h2>
+      <p>One of them is deployed right now and you can open it in a new tab.</p>
+    </div>
+
+    <div class="cards">
+
+      <article class="card feature">
+        <div>
+          <div class="card-top">
+            <h3>EvalForge — LLM evaluation platform</h3>
+            <span class="tag-live"><span class="live-dot ok"></span>Live</span>
+          </div>
+          <p class="desc">
+            A platform for measuring whether a RAG system is actually any good. Teams plug in their
+            documents and a benchmark question set; it scores answers on retrieval quality,
+            faithfulness and hallucination, then tracks how those scores move as prompts and models
+            change.
+          </p>
+          <div class="chips">
+            <span class="chip">FastAPI</span><span class="chip">PostgreSQL</span>
+            <span class="chip">Qdrant</span><span class="chip">LangChain</span>
+            <span class="chip">RAGAS</span><span class="chip">DeepEval</span>
+            <span class="chip">Docker</span><span class="chip">GCP</span>
+          </div>
+          <div class="card-links">
+            <a href="https://136-64-84-253.sslip.io/" target="_blank" rel="noopener">Open the app →</a>
+            <a href="https://136-64-84-253.sslip.io:8443/docs" target="_blank" rel="noopener">Browse the API →</a>
+          </div>
         </div>
-        <div class="stack">FastAPI · PostgreSQL · Qdrant · LangChain · RAGAS · DeepEval · Docker · GCP</div>
-        <p class="what">
-          A platform for measuring whether a RAG system is actually any good. Teams plug in their
-          documents and a benchmark question set, and it scores answers on retrieval quality,
-          faithfulness, and hallucination rate — then tracks how those scores move as prompts and
-          models change.
+        <div>
+          <ul>
+            <li><b>18 metrics per answer</b> across three families — classical NLP, retrieval quality (Recall@K, MRR, NDCG), and LLM-as-judge faithfulness scoring.</li>
+            <li>Statement-level hallucination analysis that isolates <b>which specific claims</b> the retrieved context does not support.</li>
+            <li><b>Its own regression harness caught a change of mine</b> that quietly degraded quality — reverted and reimplemented before it shipped.</li>
+            <li>Provisioned and operates the full deployment: containerized services, managed relational and vector stores, auto-renewing HTTPS.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <h3>Natural-language security analytics</h3>
+          <span class="org">C-DOT</span>
+        </div>
+        <p class="desc">
+          Analysts ask questions in plain English. The system picks the capabilities the question
+          needs, runs them concurrently across internal security data and five threat-intelligence
+          services, and returns a grounded answer with its queries and raw rows exposed.
         </p>
         <ul>
-          <li>Scores every answer on <b>18 metrics</b> across three families: classical NLP (BLEU, ROUGE, METEOR), retrieval quality (Recall@K, MRR, NDCG), and LLM-as-judge faithfulness and hallucination detection — with a statement-level analyzer that isolates which specific claims the retrieved context does not support.</li>
-          <li>Covers the full workflow: document ingestion and chunking, vector indexing, benchmark dataset validation, prompt A/B testing, model leaderboards, and exportable audit reports.</li>
-          <li><b>The regression harness caught my own bad change.</b> A fixed benchmark runs before and after every deployment — it flagged a token-budgeting change that quietly degraded smaller queries, which I reverted and reimplemented. Measuring quality is the point of the product, so it measures itself.</li>
-          <li>Provisioned and operates the entire deployment: containerized API, managed relational and vector stores, HTTPS with auto-renewing certificates, tuned to run inside a single free-tier VM's memory envelope.</li>
+          <li><b>Deploys against a different organization's data with no code change</b> — 40 tables and ~1,700 fields resolved at runtime from catalogs, enforced by an automated audit.</li>
+          <li>Concurrent <b>plan → execute → synthesize → review</b> orchestration, so multi-source questions cost the slower path rather than the sum.</li>
+          <li>Self-describing capability registry — adding a capability is one registration instead of three files kept manually in sync.</li>
+          <li>Worst-case query <b>232s → 66s</b>, with 62 automated tests written from zero.</li>
         </ul>
-        <div class="worklinks">
-          <a href="https://136-64-84-253.sslip.io/" target="_blank" rel="noopener">Open the app →</a>
-          <a href="https://136-64-84-253.sslip.io:8443/docs" target="_blank" rel="noopener">Browse the live API →</a>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">LangGraph</span>
+          <span class="chip">PostgreSQL</span><span class="chip">OpenSearch</span>
+          <span class="chip">self-hosted LLM</span>
         </div>
-      </div>
+      </article>
 
-      <div class="work">
-        <div class="work-top">
-          <h3>Natural-language security analytics platform</h3>
-          <span class="where">C-DOT · 2023–present</span>
-        </div>
-        <div class="stack">Python · LangGraph · PostgreSQL · OpenSearch · self-hosted LLM · Docker</div>
-        <p class="what">
-          Security analysts ask questions in plain English. The system decides which investigative
-          capabilities the question needs, runs them concurrently against internal security data and
-          five external threat-intelligence services, and returns one grounded answer — with the
-          queries it generated and the raw rows it read exposed for verification.
-        </p>
-        <ul>
-          <li><b>Deploys against a different organization's data without a code change.</b> No table, column, index, or rule name appears in source at all — the entire surface (<b>40 PostgreSQL tables, ~1,700 described OpenSearch fields</b>) resolves at runtime from per-deployment catalogs, enforced by an automated audit rather than left to convention.</li>
-          <li>Architected the orchestration as a <b>plan → execute → synthesize → review</b> state machine in which selected capabilities run <b>concurrently</b>, so a question needing both internal logs and external reputation data costs the slower of the two rather than the sum.</li>
-          <li>Built a <b>self-describing capability registry</b> — each module declares its own routing rules, availability, and data scope, and the planner and reviewer prompts are generated from it, so the system can never advertise a capability it can't actually run and adding one is a single registration rather than three files kept manually in sync.</li>
-          <li>Designed the correctness layer: a review checkpoint that catches answers built on unresolved intermediate results, deterministic validation and rewriting of every generated query before execution, and a scope-aware judge that blocks unsupported claims.</li>
-          <li>Cut worst-case query turnaround from <b>232s — routinely abandoned by analysts — to 66s</b>, and eliminated a class of silent wrong-answer bugs, backed by <b>62 automated tests written from zero</b> and a fixed benchmark diffed before and after every change.</li>
-        </ul>
-      </div>
-
-      <div class="work">
-        <div class="work-top">
+      <article class="card">
+        <div class="card-top">
           <h3>Anomaly detection at scale</h3>
-          <span class="where">C-DOT · 2023–present</span>
+          <span class="org">C-DOT</span>
         </div>
-        <div class="stack">Python · Scikit-learn · PySpark · Docker</div>
-        <p class="what">
-          Detection pipelines running over high-volume endpoint telemetry, tuned to cut the alert
-          noise that makes analysts stop trusting a system.
+        <p class="desc">
+          Detection pipelines over high-volume endpoint telemetry, tuned to cut the alert noise that
+          makes analysts stop trusting a system.
         </p>
         <ul>
-          <li>Cut false-positive security alerts by <b>30%</b> through feature engineering and threshold calibration across <b>5M+ events per endpoint per day</b>.</li>
+          <li>Cut false-positive alerts by <b>30%</b> through feature engineering and threshold calibration across <b>5M+ events per endpoint per day</b>.</li>
           <li>Shipped containerized inference services with automated retraining workflows.</li>
-          <li>Built classifiers that catch processes impersonating legitimate system binaries, using allowlists and edit-distance matching on process names.</li>
+          <li>Built classifiers catching processes that impersonate legitimate system binaries, using allowlists and edit-distance matching.</li>
         </ul>
-      </div>
-
-      <div class="work">
-        <div class="work-top">
-          <h3>Enterprise knowledge assistant</h3>
-          <span class="where">C-DOT · 2023–present</span>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">Scikit-learn</span>
+          <span class="chip">PySpark</span><span class="chip">Docker</span>
         </div>
-        <div class="stack">Python · LangChain · RAG · vector search</div>
-        <p class="what">
-          A question-answering system over <b>1,000+ internal policy, technical, and operational
-          documents</b>, with source citations and downloadable references attached to every answer —
-          so staff can verify what they're told instead of taking a generated answer on trust.
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <h3>Enterprise knowledge assistant</h3>
+          <span class="org">C-DOT</span>
+        </div>
+        <p class="desc">
+          Question answering over <b>1,000+ internal policy, technical and operational documents</b>,
+          with source citations and downloadable references attached to every answer — so staff can
+          verify what they're told instead of trusting a generated response.
         </p>
-      </div>
-      </div>
-    </section>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">LangChain</span>
+          <span class="chip">RAG</span><span class="chip">vector search</span>
+        </div>
+      </article>
 
-    <section class="row">
-      <div class="sec-label">How I work</div>
-      <div class="sec-body">
+    </div>
+  </div>
+</section>
 
-      <div class="note-card">
-        <h3>I assume the model is lying until the data says otherwise</h3>
+<section class="band band-dark" id="approach">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">How I work</div>
+      <h2>The dangerous failure isn't a crash — it's a confident wrong answer.</h2>
+      <p>Three things I've learned building systems where the output looks right either way.</p>
+    </div>
+
+    <div class="appr">
+      <div class="appr-card">
+        <div class="appr-num">01</div>
+        <h3>Assume the model is lying until the data says otherwise</h3>
         <p>
-          The dangerous failure in an LLM system isn't a crash — it's a confident, well-formatted
-          answer that happens to be wrong. Most of my debugging time goes into finding the cases
-          where a system returns something plausible and nobody notices.
+          A search filter looked correct and returned zero results, because an identifier meant
+          something different in each data source it was applied to. The answer read perfectly.
+          It matched nothing.
         </p>
-        <p>
-          One example: a search filter that looked correct and returned zero results, because an
-          identifier meant something different in each data source it was applied to. The answer
-          read perfectly. It matched nothing.
-        </p>
-        <div class="outcome">Fix: constrain generation per data source, then validate deterministically in code — never trust the prompt to enforce it.</div>
+        <div class="res">Constrain generation per source, then validate in code.</div>
       </div>
 
-      <div class="note-card">
+      <div class="appr-card">
+        <div class="appr-num">02</div>
         <h3>Budget the resource that actually runs out</h3>
         <p>
-          A pipeline kept failing at the context limit despite a row cap that looked conservative.
-          The cap counted rows; the cost is in tokens — and row width varied by roughly 100×
-          between tables, so a "safe" limit was worth more than the entire context window.
+          A pipeline kept hitting the context limit despite a row cap that looked conservative. The
+          cap counted rows; the cost is in tokens — and row width varied ~100× between tables, so a
+          "safe" limit exceeded the entire window.
         </p>
-        <div class="outcome">Fix: measure the real budget at runtime and allocate by share — cutting worst-case turnaround 3–6× and eliminating a class of hard failures.</div>
+        <div class="res">Measure the real budget at runtime, allocate by share.</div>
       </div>
 
-      <div class="note-card">
+      <div class="appr-card">
+        <div class="appr-num">03</div>
         <h3>Prompt instructions are not enforcement</h3>
         <p>
           Repeatedly, the prompt already forbade the exact behaviour a model then produced. Where
-          correctness matters, I let the prompt state intent and make code guarantee it — with
-          every automated rewrite logged, so a wrong answer can always be traced.
+          correctness matters, the prompt states intent and code guarantees it — with every
+          automated rewrite logged so a wrong answer can be traced.
         </p>
-        <div class="outcome">Verified by a fixed benchmark diffed before and after every change, so quality is measured rather than assumed.</div>
+        <div class="res">Verified by a fixed benchmark diffed on every change.</div>
       </div>
-      </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <footer class="row">
-      <div class="sec-label">Contact</div>
-      <div class="foot-body">
-        <span>2021pcs1016@iitjammu.ac.in</span>
-        <span>+91-9876635806</span>
-        <span>Punjab, India</span>
-      </div>
-    </footer>
-  </main>
+<section class="band band-alt" id="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">Background</div>
+      <h2>Three years turning research-grade ideas into services that stay up.</h2>
+    </div>
 
-  <aside>
-    <div class="aside-inner">
-    <div class="grp">
-      <h4>Currently</h4>
-      <div class="item">
-        <div class="t">Scientist B — ML/AI Engineer</div>
-        <div class="s">C-DOT, New Delhi<br>Aug 2023 – present</div>
+    <div class="facts">
+      <div class="fact">
+        <h4>Experience</h4>
+        <div class="row">
+          <div class="t">Scientist B — ML/AI Engineer</div>
+          <div class="s">Centre for Development of Telematics (C-DOT)<br>New Delhi · Aug 2023 – present</div>
+        </div>
+      </div>
+
+      <div class="fact">
+        <h4>Education</h4>
+        <div class="row">
+          <div class="t">M.Tech, Data Science</div>
+          <div class="s">IIT Jammu · CGPA 8.48 · 2023</div>
+        </div>
+        <div class="row">
+          <div class="t">B.Tech, Computer Science</div>
+          <div class="s">Chandigarh University · CGPA 7.8 · 2020</div>
+        </div>
+      </div>
+
+      <div class="fact">
+        <h4>Certifications</h4>
+        <div class="row">
+          <div class="s">IBM — Develop Generative AI Applications</div>
+        </div>
+        <div class="row">
+          <div class="s">IBM — Agentic AI with LangGraph, CrewAI, AutoGen &amp; BeeAI</div>
+        </div>
       </div>
     </div>
 
-    <div class="grp">
-      <h4>Education</h4>
-      <div class="item">
-        <div class="t">M.Tech, Data Science</div>
-        <div class="s">IIT Jammu · CGPA 8.48</div>
-      </div>
-      <div class="item">
-        <div class="t">B.Tech, Computer Science</div>
-        <div class="s">Chandigarh University · CGPA 7.8</div>
-      </div>
+    <div class="chips" style="margin-top:28px;">
+      <span class="chip">Python</span><span class="chip">PyTorch</span><span class="chip">LangChain</span>
+      <span class="chip">LangGraph</span><span class="chip">RAG</span><span class="chip">FastAPI</span>
+      <span class="chip">PostgreSQL</span><span class="chip">OpenSearch</span><span class="chip">Qdrant</span>
+      <span class="chip">PySpark</span><span class="chip">Docker</span><span class="chip">GCP</span>
+      <span class="chip">SQL</span><span class="chip">C++</span>
     </div>
+  </div>
+</section>
 
-    <div class="grp">
-      <h4>Works with</h4>
-      <div class="chips">
-        <span class="chip">Python</span>
-        <span class="chip">PyTorch</span>
-        <span class="chip">LangChain</span>
-        <span class="chip">LangGraph</span>
-        <span class="chip">RAG</span>
-        <span class="chip">FastAPI</span>
-        <span class="chip">PostgreSQL</span>
-        <span class="chip">OpenSearch</span>
-        <span class="chip">Qdrant</span>
-        <span class="chip">Docker</span>
-        <span class="chip">GCP</span>
-        <span class="chip">SQL</span>
+<section class="band band-dark" id="contact">
+  <div class="wrap">
+    <div class="contact-in">
+      <div class="sec-kicker">Get in touch</div>
+      <h2>Open to ML and LLM engineering roles.</h2>
+      <p>
+        If you're building retrieval or agent systems that need to be right, not just plausible —
+        I'd like to hear about it.
+      </p>
+      <div class="contact-btns">
+        <a class="btn on-dark" href="mailto:2021pcs1016@iitjammu.ac.in">Email me</a>
+        <a class="btn outline-dark" href="https://github.com/AkTyzon" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn outline-dark" href="https://136-64-84-253.sslip.io/" target="_blank" rel="noopener">Live platform</a>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="grp">
-      <h4>Certifications</h4>
-      <div class="item">
-        <div class="s">IBM — Develop Generative AI Applications</div>
-      </div>
-      <div class="item">
-        <div class="s">IBM — Agentic AI with LangGraph, CrewAI, AutoGen &amp; BeeAI</div>
-      </div>
-    </div>
-
-    <div class="grp">
-      <h4>Elsewhere</h4>
-      <div class="links">
-        <a href="mailto:2021pcs1016@iitjammu.ac.in">Email</a>
-        <a href="https://github.com/AkTyzon" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://136-64-84-253.sslip.io/" target="_blank" rel="noopener">EvalForge (live)</a>
-      </div>
-    </div>
-    </div>
-  </aside>
-</div>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>Akshay Kaushik · Punjab, India</span>
+    <span>2021pcs1016@iitjammu.ac.in · +91-9876635806</span>
+  </div>
+</footer>
 
 <script>
 (function(){
   var API = "https://136-64-84-253.sslip.io:8443";
-  var dot = document.getElementById('sdot');
-  var txt = document.getElementById('stext');
-  if(!dot || !txt) return;
+  var $ = function(id){ return document.getElementById(id); };
+  var st = $('c-status'), sv = $('c-svc'), en = $('c-env'), rt = $('c-routes');
+  if(!st) return;
 
-  fetch(API + '/', { cache: 'no-store' })
-    .then(function(r){ return r.ok ? r.json() : Promise.reject(r.status); })
-    .then(function(){
-      dot.className = 'status-dot ok';
-      txt.textContent = 'deployment online — responding now';
+  fetch(API + '/', { cache:'no-store' })
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(d){
+      st.textContent = '200 OK — online';
+      st.className = 'cv good';
+      sv.textContent = d.service || 'EvalForge Backend API';
+      en.textContent = d.environment || 'production';
+      return fetch(API + '/openapi.json', { cache:'no-store' });
+    })
+    .then(function(r){ return r.json(); })
+    .then(function(spec){
+      rt.textContent = Object.keys(spec.paths || {}).length + ' endpoints';
     })
     .catch(function(){
-      dot.className = 'status-dot err';
-      txt.textContent = 'deployment unreachable — single free-tier VM, may be restarting';
+      if(st.className.indexOf('good') === -1){
+        st.textContent = 'unreachable';
+        st.className = 'cv bad';
+        sv.textContent = 'single free-tier VM — may be restarting';
+        en.textContent = '—';
+      }
+      if(rt.textContent === '—') rt.textContent = '—';
     });
 })();
 </script>
