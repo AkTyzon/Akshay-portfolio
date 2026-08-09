@@ -278,7 +278,7 @@
           queries it generated and the raw rows it read exposed for verification.
         </p>
         <ul>
-          <li>Grounds every query in a runtime-loaded catalog spanning <b>40 PostgreSQL tables and ~1,700 described OpenSearch fields</b>, with <b>no schema hardcoded anywhere</b> — the same codebase serves a different organization's data without a code change.</li>
+          <li><b>Deploys against a different organization's data without a code change.</b> No table, column, index, or rule name appears in source at all — the entire surface (<b>40 PostgreSQL tables, ~1,700 described OpenSearch fields</b>) resolves at runtime from per-deployment catalogs, enforced by an automated audit rather than left to convention.</li>
           <li>Architected the orchestration as a <b>plan → execute → synthesize → review</b> state machine in which selected capabilities run <b>concurrently</b>, so a question needing both internal logs and external reputation data costs the slower of the two rather than the sum.</li>
           <li>Built a <b>self-describing capability registry</b> — each module declares its own routing rules, availability, and data scope, and the planner and reviewer prompts are generated from it, so the system can never advertise a capability it can't actually run and adding one is a single registration rather than three files kept manually in sync.</li>
           <li>Designed the correctness layer: a review checkpoint that catches answers built on unresolved intermediate results, deterministic validation and rewriting of every generated query before execution, and a scope-aware judge that blocks unsupported claims.</li>
