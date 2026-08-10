@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Akshay Kaushik — Machine Learning Engineer</title>
-<meta name="description" content="Akshay Kaushik — machine learning engineer building LLM, RAG and agent systems for security operations. Live deployed evaluation platform.">
+<meta name="description" content="Akshay Kaushik — machine learning engineer building LLM, RAG and agent systems for security operations. Two live deployed systems.">
 <style>
 
   @font-face {
@@ -397,7 +397,7 @@
     <div class="sec-head">
       <div class="sec-kicker">Selected work</div>
       <h2>Systems I designed, shipped and kept running.</h2>
-      <p>One of them is deployed right now and you can open it in a new tab.</p>
+      <p>Two of them are deployed right now — you can open either in a new tab.</p>
     </div>
 
     <div class="cards">
@@ -491,6 +491,30 @@
         <div class="chips">
           <span class="chip">Python</span><span class="chip">LangChain</span>
           <span class="chip">RAG</span><span class="chip">vector search</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <h3>GenAI Résumé Analyzer</h3>
+          <span class="tag-live"><span class="live-dot ok"></span>Live</span>
+        </div>
+        <p class="desc">
+          Upload a résumé and paste a job description. It pulls the hard skills out of both, scores
+          the fit, and names the specific additions that would close the gap.
+        </p>
+        <ul>
+          <li><b>Five chained prompts</b> — extraction, validation, comparison, summary and improvement — running on Llama 3.1 8B via Groq.</li>
+          <li>Structured JSON output with <b>parse-repair and retry</b>, because a model asked for JSON does not reliably return it.</li>
+          <li>Side-by-side skill word clouds for résumé versus job description, plus a fit score and suggested additions.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Streamlit</span><span class="chip">LangChain</span>
+          <span class="chip">Groq</span><span class="chip">Llama 3.1</span>
+          <span class="chip">PyMuPDF</span><span class="chip">Docker</span>
+        </div>
+        <div class="card-links">
+          <a href="https://huggingface.co/spaces/TyzonAk/GEN-AI-RESUME-SUMMARIZER" target="_blank" rel="noopener">Try it on Hugging Face →</a>
         </div>
       </article>
 
