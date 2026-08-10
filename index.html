@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Akshay Kaushik — Machine Learning Engineer</title>
-<meta name="description" content="Akshay Kaushik — machine learning engineer building LLM, RAG and agent systems for security operations. Two live deployed systems.">
+<meta name="description" content="Akshay Kaushik — machine learning engineer building LLM, RAG and agent systems. Five live deployed projects.">
 <style>
 
   @font-face {
@@ -397,7 +397,7 @@
     <div class="sec-head">
       <div class="sec-kicker">Selected work</div>
       <h2>Systems I designed, shipped and kept running.</h2>
-      <p>Two of them are deployed right now — you can open either in a new tab.</p>
+      <p>Five of them are deployed right now — every link below opens something real.</p>
     </div>
 
     <div class="cards">
@@ -515,6 +515,77 @@
         </div>
         <div class="card-links">
           <a href="https://huggingface.co/spaces/TyzonAk/GEN-AI-RESUME-SUMMARIZER" target="_blank" rel="noopener">Try it on Hugging Face →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <h3>Movie recommender</h3>
+          <span class="tag-live"><span class="live-dot ok"></span>Live</span>
+        </div>
+        <p class="desc">
+          Item-item collaborative filtering over the MovieLens ratings matrix — no genre matching,
+          only what people actually watched together.
+        </p>
+        <ul>
+          <li><b>15.5% hit-rate@10</b> against a popularity baseline's 5.9% on a leave-last-out protocol — a <b>2.63× lift</b> across 594 users.</li>
+          <li>Ratings mean-centred per user so a generous rater and a harsh rater count comparably.</li>
+          <li>Similarities precomputed offline and shipped as static JSON — the demo answers instantly with no server.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">scikit-learn</span>
+          <span class="chip">SciPy</span><span class="chip">MovieLens</span>
+        </div>
+        <div class="card-links">
+          <a href="demos/movie/">Open the demo →</a>
+          <a href="https://github.com/AkTyzon/Akshay-portfolio/tree/main/projects/movie-recommender" target="_blank" rel="noopener">Code →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <h3>Cascade learning on Spark</h3>
+          <span class="tag-live"><span class="live-dot ok"></span>Results</span>
+        </div>
+        <p class="desc">
+          A cheap model answers what it is confident about; only the residual escalates to an
+          expensive one. Run over 581,012 rows with Spark MLlib.
+        </p>
+        <ul>
+          <li>Retains <b>99.1%</b> of a random forest's accuracy while avoiding <b>44%</b> of its work.</li>
+          <li>Swept across nine confidence thresholds — the useful region is the knee, and picking a point on it is a product decision about what a millisecond costs.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">PySpark</span><span class="chip">Spark MLlib</span>
+          <span class="chip">UCI Covertype</span>
+        </div>
+        <div class="card-links">
+          <a href="demos/cascade/">See the results →</a>
+          <a href="https://github.com/AkTyzon/Akshay-portfolio/tree/main/projects/cascade-learning-spark" target="_blank" rel="noopener">Spark job →</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <h3>Recipe recommender</h3>
+          <span class="tag-live"><span class="live-dot ok"></span>Live</span>
+        </div>
+        <p class="desc">
+          Content-based similarity over recipes. The real work is parsing —
+          <b>2/3 cup panko</b> has to become <b>panko</b>, or every recipe looks alike because they
+          all contain cups and teaspoons.
+        </p>
+        <ul>
+          <li><b>96% tag agreement@5</b> against a 38.5% random baseline — a <b>2.49× lift</b>.</li>
+          <li>Content-based by necessity: the corpus carries no user ratings, so claiming a hybrid model would be fiction — and it handles a brand-new recipe with zero history.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">TF-IDF</span>
+          <span class="chip">scikit-learn</span>
+        </div>
+        <div class="card-links">
+          <a href="demos/food/">Open the demo →</a>
+          <a href="https://github.com/AkTyzon/Akshay-portfolio/tree/main/projects/food-recommender" target="_blank" rel="noopener">Code →</a>
         </div>
       </article>
 
