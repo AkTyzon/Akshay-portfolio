@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cascade Learning on Spark — Akshay Kaushik</title>
+<meta name="description" content="Two-stage cascade on 581k rows: how much of an expensive model's cost can be avoided without losing its accuracy.">
+<link rel="stylesheet" href="../demo.css">
+<style>
+table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12.5px;margin-top:6px}
+th,td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line-soft);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);background:var(--bg);font-weight:600}
+tr.pick td{background:var(--accent-soft);font-weight:700;color:var(--text)}
+tr.pick td:first-child::after{content:" ← chosen";color:var(--accent);font-weight:600}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin-top:8px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px}
+@media(max-width:640px){.two{grid-template-columns:1fr}}
+.stage{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px}
+.stage .n{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint)}
+.stage .m{font-weight:600;margin-top:5px}
+.stage .d{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:7px;line-height:1.7}
+</style></head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="back" href="../../">Back to portfolio</a>
+  <a href="https://github.com/AkTyzon/Akshay-portfolio/tree/main/projects/cascade-learning-spark" target="_blank" rel="noopener">Spark job →</a>
+</div></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>Cascade learning on Spark</h1>
+    <p>
+      A cheap model answers everything it is confident about; only the residual escalates to an
+      expensive one. The question worth asking isn't whether the big model is more accurate — it is —
+      but <b>how much of its cost you can avoid without giving that accuracy back</b>.
+    </p>
+    <div class="metrics" id="metrics"></div>
+  </header>
+
+  <div class="panel">
+    <label>The two stages</label>
+    <div class="two" id="stages"></div>
+
+    <label style="margin-top:26px">Cost / accuracy tradeoff</label>
+    <p style="color:var(--dim);font-size:.94rem;margin:0 0 4px">
+      Sweeping the stage-1 confidence threshold. Higher threshold means stage 1 keeps fewer cases for
+      itself, so accuracy climbs toward the expensive model's — and the saving disappears with it.
+    </p>
+    <div class="tw"><table id="sweep">
+      <thead><tr><th>Confidence threshold</th><th>Escalated to stage 2</th><th>Stage-2 work avoided</th><th>Cascade accuracy</th><th>Accuracy retained</th></tr></thead>
+      <tbody></tbody></table></div>
+  </div>
+
+  <div class="note">
+    <h3>What the curve actually says</h3>
+    <p>
+      At a threshold of <b>0.70</b> the cascade skips <b>56%</b> of the expensive model's work and still
+      keeps <b>98.3%</b> of its accuracy. Push to 0.90 and accuracy is identical to the full model — but
+      91% of rows now escalate, so there is almost nothing left to save. Drop to 0.50 and the cheap model
+      answers nearly everything, at a real accuracy cost.
+    </p>
+    <p>
+      That shape is the whole point of a cascade: the useful region is the knee, not either end. Which
+      point you pick is a product decision about how much accuracy a millisecond is worth — not something
+      the model can decide for you.
+    </p>
+  </div>
+</div>
+
+<footer><div class="wrap">Akshay Kaushik · UCI Covertype (581,012 rows) · Spark MLlib, local[4]</div></footer>
+
+<script>
+fetch('cascade_results.json').then(r=>r.json()).then(d=>{
+  document.getElementById('metrics').innerHTML=[
+    {k:'Rows',v:d.rows.toLocaleString()},
+    {k:'Stage-2 work avoided',v:(d.summary.stage2_work_avoided*100).toFixed(0)+'%'},
+    {k:'Accuracy retained',v:(d.summary.accuracy_retained_vs_stage2*100).toFixed(1)+'%'},
+    {k:'Features',v:d.features},{k:'Classes',v:d.classes}
+  ].map(m=>'<div class="metric"><span class="k">'+m.k+'</span><span class="v">'+m.v+'</span></div>').join('');
+
+  document.getElementById('stages').innerHTML=[
+    ['Stage 1 — cheap',d.stage1],['Stage 2 — expensive',d.stage2]
+  ].map(([n,s])=>'<div class="stage"><div class="n">'+n+'</div><div class="m">'+s.model+'</div>'+
+    '<div class="d">accuracy '+(s.accuracy*100).toFixed(2)+'%<br>fit '+s.fit_seconds+'s · predict '+s.predict_seconds+'s</div></div>').join('');
+
+  document.querySelector('#sweep tbody').innerHTML=d.sweep.map(s=>
+    '<tr'+(s.threshold===d.confidence_threshold?' class="pick"':'')+'>'+
+    '<td>'+s.threshold.toFixed(2)+'</td>'+
+    '<td>'+(s.escalation_rate*100).toFixed(1)+'%</td>'+
+    '<td>'+(s.stage2_work_avoided*100).toFixed(1)+'%</td>'+
+    '<td>'+(s.cascade_accuracy*100).toFixed(2)+'%</td>'+
+    '<td>'+(s.accuracy_retained*100).toFixed(1)+'%</td></tr>').join('');
+}).catch(()=>{document.getElementById('metrics').innerHTML='<p style="color:#a53d3d">Could not load results.</p>';});
+</script>
+</body></html>

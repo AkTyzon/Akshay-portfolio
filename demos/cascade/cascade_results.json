@@ -1,0 +1,97 @@
+{
+  "dataset": "UCI Covertype",
+  "rows": 581012,
+  "train": 464792,
+  "test": 116220,
+  "features": 54,
+  "classes": 7,
+  "confidence_threshold": 0.75,
+  "stage1": {
+    "model": "LogisticRegression(maxIter=30)",
+    "accuracy": 0.7206,
+    "fit_seconds": 4.6,
+    "predict_seconds": 0.7
+  },
+  "stage2": {
+    "model": "RandomForest(60 trees, depth 15)",
+    "accuracy": 0.7904,
+    "fit_seconds": 25.8,
+    "predict_seconds": 1.5
+  },
+  "cascade": {
+    "accuracy": 0.7834,
+    "escalation_rate": 0.5568,
+    "rows_answered_by_stage1": 51509,
+    "rows_escalated": 64711,
+    "predict_seconds": 1.5
+  },
+  "sweep": [
+    {
+      "threshold": 0.5,
+      "escalation_rate": 0.0406,
+      "cascade_accuracy": 0.7303,
+      "accuracy_retained": 0.924,
+      "stage2_work_avoided": 0.9594
+    },
+    {
+      "threshold": 0.6,
+      "escalation_rate": 0.2283,
+      "cascade_accuracy": 0.7583,
+      "accuracy_retained": 0.9594,
+      "stage2_work_avoided": 0.7717
+    },
+    {
+      "threshold": 0.7,
+      "escalation_rate": 0.4402,
+      "cascade_accuracy": 0.777,
+      "accuracy_retained": 0.9831,
+      "stage2_work_avoided": 0.5598
+    },
+    {
+      "threshold": 0.75,
+      "escalation_rate": 0.5568,
+      "cascade_accuracy": 0.7834,
+      "accuracy_retained": 0.9911,
+      "stage2_work_avoided": 0.4432
+    },
+    {
+      "threshold": 0.8,
+      "escalation_rate": 0.6817,
+      "cascade_accuracy": 0.7877,
+      "accuracy_retained": 0.9966,
+      "stage2_work_avoided": 0.3183
+    },
+    {
+      "threshold": 0.85,
+      "escalation_rate": 0.8059,
+      "cascade_accuracy": 0.7899,
+      "accuracy_retained": 0.9995,
+      "stage2_work_avoided": 0.1941
+    },
+    {
+      "threshold": 0.9,
+      "escalation_rate": 0.9099,
+      "cascade_accuracy": 0.7904,
+      "accuracy_retained": 1.0,
+      "stage2_work_avoided": 0.0901
+    },
+    {
+      "threshold": 0.95,
+      "escalation_rate": 0.9754,
+      "cascade_accuracy": 0.7904,
+      "accuracy_retained": 1.0001,
+      "stage2_work_avoided": 0.0246
+    },
+    {
+      "threshold": 0.99,
+      "escalation_rate": 0.9991,
+      "cascade_accuracy": 0.7904,
+      "accuracy_retained": 1.0,
+      "stage2_work_avoided": 0.0009
+    }
+  ],
+  "summary": {
+    "accuracy_retained_vs_stage2": 0.9912,
+    "stage2_work_avoided": 0.4432
+  }
+}
