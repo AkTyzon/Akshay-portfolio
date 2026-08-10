@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recipe Recommender — Akshay Kaushik</title>
+<meta name="description" content="Content-based recipe recommender over normalised ingredients, tags and nutrition bands.">
+<link rel="stylesheet" href="../demo.css">
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="back" href="../../">Back to portfolio</a>
+  <a href="https://github.com/AkTyzon/Akshay-portfolio/tree/main/projects/food-recommender" target="_blank" rel="noopener">Training code →</a>
+</div></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>Recipe recommender</h1>
+    <p>
+      Content-based similarity over recipes. Free-text ingredient lines are parsed down to
+      ingredient tokens — quantities, units and prep words stripped — then combined with dish tags
+      and a coarse nutrition band into a TF-IDF profile per recipe.
+    </p>
+    <div class="metrics" id="metrics"></div>
+  </header>
+
+  <div class="panel">
+    <label for="q">Search a recipe</label>
+    <div class="searchrow">
+      <input type="search" id="q" placeholder="Try chicken, bento, soup, eggnog…" autocomplete="off">
+      <div class="sugg" id="sugg"></div>
+    </div>
+    <div class="seed" id="seed"></div>
+    <div class="results" id="out"></div>
+  </div>
+
+  <div class="note">
+    <h3>Why content-based, and not collaborative</h3>
+    <p>
+      This corpus has no user ratings at all — so collaborative filtering is impossible on it, and
+      claiming a hybrid model would be fiction. The honest design is content-based similarity, which
+      also means it handles a brand-new recipe with zero interaction history.
+    </p>
+    <p>
+      Evaluated by tag agreement: <b>96%</b> of the top-5 neighbours share a dish tag with the query
+      recipe, against <b>38.5%</b> for random pairs — a <b>2.5× lift</b>. The parsing is where the
+      real work is: <code>2/3 cup panko</code> has to become <code>panko</code>, or every recipe
+      looks similar because they all contain cups and teaspoons.
+    </p>
+  </div>
+</div>
+
+<footer><div class="wrap">Akshay Kaushik · public recipe corpus (tabatkins/recipe-db) · scikit-learn TF-IDF</div></footer>
+
+<script>
+var CFG = {
+  data: 'food_data.json',
+  initial: function(d){ var c = d.items.find(function(i){return i.tags.indexOf('chicken')!==-1;}); return (c||d.items[0]).id; },
+  metrics: function(m){ return [
+    {k:'Tag agreement@5', v:(m.metrics.tag_agreement_at_5*100).toFixed(0)+'%'},
+    {k:'Random baseline', v:(m.metrics.tag_agreement_at_5_random*100).toFixed(0)+'%', muted:true},
+    {k:'Lift', v:m.metrics.lift_over_random+'×'},
+    {k:'Recipes', v:m.metrics.recipes},
+    {k:'Vocabulary', v:m.metrics.vocabulary}
+  ];},
+  seedMeta: function(i){
+    var p=[i.ing+' ingredients']; if(i.kcal)p.push(i.kcal+' kcal/serving'); if(i.mins)p.push(i.mins+' min');
+    return p.join(' · ') + (i.tags.length? ' · '+i.tags.join(', '):'');
+  },
+  recMeta: function(o,n){
+    var p='<span>sim '+n.s+'</span>'; if(o.kcal)p+='<span>'+o.kcal+' kcal</span>'; if(o.mins)p+='<span>'+o.mins+' min</span>';
+    return p;
+  },
+  suggMeta: function(i){ return i.tags.slice(0,2).join(', '); }
+};
+</script>
+<script src="../demo.js"></script>
+</body>
+</html>

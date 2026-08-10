@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Movie Recommender — Akshay Kaushik</title>
+<meta name="description" content="Item-item collaborative filtering on MovieLens, evaluated against a popularity baseline.">
+<link rel="stylesheet" href="../demo.css">
+</head>
+<body>
+<div class="topbar"><div class="topbar-in">
+  <a class="back" href="../../">Back to portfolio</a>
+  <a href="https://github.com/AkTyzon/Akshay-portfolio/tree/main/projects/movie-recommender" target="_blank" rel="noopener">Training code →</a>
+</div></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>Movie recommender</h1>
+    <p>
+      Item-item collaborative filtering over the MovieLens ratings matrix. Pick any film and it
+      returns the closest neighbours by cosine similarity on mean-centred ratings — no genre
+      matching, only what people actually watched together.
+    </p>
+    <div class="metrics" id="metrics"></div>
+  </header>
+
+  <div class="panel">
+    <label for="q">Search a film</label>
+    <div class="searchrow">
+      <input type="search" id="q" placeholder="Try Godfather, Toy Story, Matrix…" autocomplete="off">
+      <div class="sugg" id="sugg"></div>
+    </div>
+    <div class="seed" id="seed"></div>
+    <div class="results" id="out"></div>
+  </div>
+
+  <div class="note">
+    <h3>How it was evaluated</h3>
+    <p>
+      A recommender that looks plausible is easy; one that beats simply showing the most popular
+      films is not. Each user's most recent highly-rated film is hidden, the rest of their history
+      is used to score candidates, and I check whether the hidden film comes back in the top 10.
+    </p>
+    <p>
+      The model hits <b>15.5%</b> against a popularity baseline's <b>5.9%</b> on the same protocol —
+      a <b>2.6× lift</b>. Similarities are precomputed offline and shipped as static JSON, so this
+      page needs no server and answers instantly.
+    </p>
+  </div>
+</div>
+
+<footer><div class="wrap">Akshay Kaushik · MovieLens ml-latest-small · scikit-learn, SciPy</div></footer>
+
+<script>
+var CFG = {
+  data: 'movie_data.json',
+  initial: function(d){ var g = d.items.find(function(i){return i.t.indexOf('Godfather, The')===0;}); return (g||d.items[0]).id; },
+  metrics: function(m){ return [
+    {k:'Hit-rate@10', v:(m.metrics.hit_rate_at_10_cf*100).toFixed(1)+'%'},
+    {k:'Popularity baseline', v:(m.metrics.hit_rate_at_10_popularity*100).toFixed(1)+'%', muted:true},
+    {k:'Lift', v:m.metrics.lift_over_popularity+'×'},
+    {k:'Ratings', v:m.ratings.toLocaleString()},
+    {k:'Films', v:m.movies.toLocaleString()}
+  ];},
+  seedMeta: function(i){ return i.n+' ratings · avg '+i.r+' · '+i.g.join(', '); },
+  recMeta: function(o,n){ return '<span>sim '+n.s+'</span><span>'+o.n+' ratings</span><span>avg '+o.r+'</span>'; },
+  suggMeta: function(i){ return i.n+' ratings'; }
+};
+</script>
+<script src="../demo.js"></script>
+</body>
+</html>
