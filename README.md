@@ -81,5 +81,7 @@ public demo.)*
 **Indian Institute of Technology (IIT), Jammu** — M.Tech, Data Science · CGPA 8.48 · 2023
 **Chandigarh University** — B.Tech, Computer Science · CGPA 7.8 · 2020
 
+**Awards:** PromptWars (Google for Developers · Build with AI) — top 400 of 2,565 participants, 2026
+
 **Certifications:** IBM — Develop Generative AI Applications · IBM — Agentic AI with LangGraph, CrewAI,
 AutoGen & BeeAI
