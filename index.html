@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Akshay Kaushik — Machine Learning Engineer</title>
-<meta name="description" content="Akshay Kaushik — machine learning engineer building LLM, RAG and agent systems. Six live deployed projects.">
+<meta name="description" content="Akshay Kaushik — machine learning engineer building LLM, RAG and agent systems. Production work at C-DOT and six live independent projects.">
 <style>
 
   @font-face {
@@ -319,6 +319,7 @@
     <span class="nav-name">Akshay Kaushik</span>
     <div class="nav-links">
       <a href="#work" class="hide-sm">Work</a>
+      <a href="#projects" class="hide-sm">Projects</a>
       <a href="#approach" class="hide-sm">Approach</a>
       <a href="#about" class="hide-sm">About</a>
       <a class="nav-cta" href="https://136-64-84-253.sslip.io/" target="_blank" rel="noopener">
@@ -395,9 +396,85 @@
 <section class="band" id="work">
   <div class="wrap">
     <div class="sec-head">
-      <div class="sec-kicker">Selected work</div>
-      <h2>Systems I designed, shipped and kept running.</h2>
-      <p>Six of them are deployed right now — every link below opens something real.</p>
+      <div class="sec-kicker">Professional work</div>
+      <h2>Production systems at C-DOT.</h2>
+      <p>Three years building retrieval, agent and detection systems that run against live security data.</p>
+    </div>
+
+    <div class="cards">
+
+      <article class="card feature">
+        <div>
+        <div class="card-top">
+          <h3>Natural-language security analytics</h3>
+          <span class="org">2023 – present</span>
+        </div>
+        <p class="desc">
+          Analysts ask questions in plain English. The system picks the capabilities the question
+          needs, runs them concurrently across internal security data and five threat-intelligence
+          services, and returns a grounded answer with its queries and raw rows exposed.
+        </p>
+        
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">LangGraph</span>
+          <span class="chip">PostgreSQL</span><span class="chip">OpenSearch</span>
+          <span class="chip">self-hosted LLM</span>
+        </div>
+      </div>
+        <div><ul>
+          <li><b>Deploys against a different organization's data with no code change</b> — 40 tables and ~1,700 fields resolved at runtime from catalogs, enforced by an automated audit.</li>
+          <li>Concurrent <b>plan → execute → synthesize → review</b> orchestration, so multi-source questions cost the slower path rather than the sum.</li>
+          <li>Self-describing capability registry — adding a capability is one registration instead of three files kept manually in sync.</li>
+          <li>Worst-case query <b>232s → 66s</b>, with 62 automated tests written from zero.</li>
+        </ul></div>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <h3>Anomaly detection at scale</h3>
+          <span class="org">2023 – present</span>
+        </div>
+        <p class="desc">
+          Detection pipelines over high-volume endpoint telemetry, tuned to cut the alert noise that
+          makes analysts stop trusting a system.
+        </p>
+        <ul>
+          <li>Cut false-positive alerts by <b>30%</b> through feature engineering and threshold calibration across <b>5M+ events per endpoint per day</b>.</li>
+          <li>Shipped containerized inference services with automated retraining workflows.</li>
+          <li>Built classifiers catching processes that impersonate legitimate system binaries, using allowlists and edit-distance matching.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">Scikit-learn</span>
+          <span class="chip">PySpark</span><span class="chip">Docker</span>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <h3>Enterprise knowledge assistant</h3>
+          <span class="org">2023 – present</span>
+        </div>
+        <p class="desc">
+          Question answering over <b>1,000+ internal policy, technical and operational documents</b>,
+          with source citations and downloadable references attached to every answer — so staff can
+          verify what they're told instead of trusting a generated response.
+        </p>
+        <div class="chips">
+          <span class="chip">Python</span><span class="chip">LangChain</span>
+          <span class="chip">RAG</span><span class="chip">vector search</span>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="band band-alt" id="projects">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-kicker">Independent projects</div>
+      <h2>Things I built and deployed myself.</h2>
+      <p>Six of them are running right now — every link below opens something real, not a screenshot.</p>
     </div>
 
     <div class="cards">
@@ -437,60 +514,25 @@
 
       <article class="card">
         <div class="card-top">
-          <h3>Natural-language security analytics</h3>
-          <span class="org">C-DOT</span>
+          <h3>Agentic research assistant</h3>
+          <span class="tag-live"><span class="live-dot ok"></span>Live</span>
         </div>
         <p class="desc">
-          Analysts ask questions in plain English. The system picks the capabilities the question
-          needs, runs them concurrently across internal security data and five threat-intelligence
-          services, and returns a grounded answer with its queries and raw rows exposed.
+          Give it a research topic. It searches arXiv, embeds what it finds, retrieves the passages
+          that bear on your question, and answers from those with citations back to the papers.
         </p>
         <ul>
-          <li><b>Deploys against a different organization's data with no code change</b> — 40 tables and ~1,700 fields resolved at runtime from catalogs, enforced by an automated audit.</li>
-          <li>Concurrent <b>plan → execute → synthesize → review</b> orchestration, so multi-source questions cost the slower path rather than the sum.</li>
-          <li>Self-describing capability registry — adding a capability is one registration instead of three files kept manually in sync.</li>
-          <li>Worst-case query <b>232s → 66s</b>, with 62 automated tests written from zero.</li>
+          <li>Two retrieval bugs worth the trouble: arXiv treats an unquoted phrase as loose terms, so <b>"retrieval augmented generation"</b> returned papers on wearables until I quoted it.</li>
+          <li>And embedding the question alone left similarity near <b>0.08</b> — a generic question carries no topical signal. Retrieving on topic + question lifted it to <b>0.40</b>.</li>
+          <li>Refuses to answer when the retrieved text doesn't support one, rather than filling the gap.</li>
         </ul>
         <div class="chips">
-          <span class="chip">Python</span><span class="chip">LangGraph</span>
-          <span class="chip">PostgreSQL</span><span class="chip">OpenSearch</span>
-          <span class="chip">self-hosted LLM</span>
+          <span class="chip">FastAPI</span><span class="chip">sentence-transformers</span>
+          <span class="chip">Groq</span><span class="chip">Llama 3.3 70B</span>
+          <span class="chip">arXiv API</span>
         </div>
-      </article>
-
-      <article class="card">
-        <div class="card-top">
-          <h3>Anomaly detection at scale</h3>
-          <span class="org">C-DOT</span>
-        </div>
-        <p class="desc">
-          Detection pipelines over high-volume endpoint telemetry, tuned to cut the alert noise that
-          makes analysts stop trusting a system.
-        </p>
-        <ul>
-          <li>Cut false-positive alerts by <b>30%</b> through feature engineering and threshold calibration across <b>5M+ events per endpoint per day</b>.</li>
-          <li>Shipped containerized inference services with automated retraining workflows.</li>
-          <li>Built classifiers catching processes that impersonate legitimate system binaries, using allowlists and edit-distance matching.</li>
-        </ul>
-        <div class="chips">
-          <span class="chip">Python</span><span class="chip">Scikit-learn</span>
-          <span class="chip">PySpark</span><span class="chip">Docker</span>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-top">
-          <h3>Enterprise knowledge assistant</h3>
-          <span class="org">C-DOT</span>
-        </div>
-        <p class="desc">
-          Question answering over <b>1,000+ internal policy, technical and operational documents</b>,
-          with source citations and downloadable references attached to every answer — so staff can
-          verify what they're told instead of trusting a generated response.
-        </p>
-        <div class="chips">
-          <span class="chip">Python</span><span class="chip">LangChain</span>
-          <span class="chip">RAG</span><span class="chip">vector search</span>
+        <div class="card-links">
+          <a href="https://136-64-84-253.sslip.io:8444/" target="_blank" rel="noopener">Open the demo →</a>
         </div>
       </article>
 
@@ -520,25 +562,24 @@
 
       <article class="card">
         <div class="card-top">
-          <h3>Agentic research assistant</h3>
-          <span class="tag-live"><span class="live-dot ok"></span>Live</span>
+          <h3>Cascade learning on Spark</h3>
+          <span class="tag-live"><span class="live-dot ok"></span>Results</span>
         </div>
         <p class="desc">
-          Give it a research topic. It searches arXiv, embeds what it finds, retrieves the passages
-          that bear on your question, and answers from those with citations back to the papers.
+          A cheap model answers what it is confident about; only the residual escalates to an
+          expensive one. Run over 581,012 rows with Spark MLlib.
         </p>
         <ul>
-          <li>Two retrieval bugs worth the trouble: arXiv treats an unquoted phrase as loose terms, so <b>"retrieval augmented generation"</b> returned papers on wearables until I quoted it.</li>
-          <li>And embedding the question alone left similarity near <b>0.08</b> — a generic question carries no topical signal. Retrieving on topic + question lifted it to <b>0.40</b>.</li>
-          <li>Refuses to answer when the retrieved text doesn't support one, rather than filling the gap.</li>
+          <li>Retains <b>99.1%</b> of a random forest's accuracy while avoiding <b>44%</b> of its work.</li>
+          <li>Swept across nine confidence thresholds — the useful region is the knee, and picking a point on it is a product decision about what a millisecond costs.</li>
         </ul>
         <div class="chips">
-          <span class="chip">FastAPI</span><span class="chip">sentence-transformers</span>
-          <span class="chip">Groq</span><span class="chip">Llama 3.3 70B</span>
-          <span class="chip">arXiv API</span>
+          <span class="chip">PySpark</span><span class="chip">Spark MLlib</span>
+          <span class="chip">UCI Covertype</span>
         </div>
         <div class="card-links">
-          <a href="https://136-64-84-253.sslip.io:8444/" target="_blank" rel="noopener">Open the demo →</a>
+          <a href="demos/cascade/">See the results →</a>
+          <a href="https://github.com/AkTyzon/Akshay-portfolio/tree/main/projects/cascade-learning-spark" target="_blank" rel="noopener">Spark job →</a>
         </div>
       </article>
 
@@ -563,29 +604,6 @@
         <div class="card-links">
           <a href="demos/movie/">Open the demo →</a>
           <a href="https://github.com/AkTyzon/Akshay-portfolio/tree/main/projects/movie-recommender" target="_blank" rel="noopener">Code →</a>
-        </div>
-      </article>
-
-      <article class="card">
-        <div class="card-top">
-          <h3>Cascade learning on Spark</h3>
-          <span class="tag-live"><span class="live-dot ok"></span>Results</span>
-        </div>
-        <p class="desc">
-          A cheap model answers what it is confident about; only the residual escalates to an
-          expensive one. Run over 581,012 rows with Spark MLlib.
-        </p>
-        <ul>
-          <li>Retains <b>99.1%</b> of a random forest's accuracy while avoiding <b>44%</b> of its work.</li>
-          <li>Swept across nine confidence thresholds — the useful region is the knee, and picking a point on it is a product decision about what a millisecond costs.</li>
-        </ul>
-        <div class="chips">
-          <span class="chip">PySpark</span><span class="chip">Spark MLlib</span>
-          <span class="chip">UCI Covertype</span>
-        </div>
-        <div class="card-links">
-          <a href="demos/cascade/">See the results →</a>
-          <a href="https://github.com/AkTyzon/Akshay-portfolio/tree/main/projects/cascade-learning-spark" target="_blank" rel="noopener">Spark job →</a>
         </div>
       </article>
 
@@ -662,7 +680,7 @@
   </div>
 </section>
 
-<section class="band band-alt" id="about">
+<section class="band" id="about">
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-kicker">Background</div>
