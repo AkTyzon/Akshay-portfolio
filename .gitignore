@@ -1,0 +1,4 @@
+# datasets are downloadable; see each project README
+projects/*/data/
+.venv/
+__pycache__/

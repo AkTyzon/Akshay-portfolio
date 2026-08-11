@@ -62,7 +62,7 @@ def nutrition_band(r):
 
 
 def main():
-    db = json.load(open("recipes.json"))
+    db = json.load(open("data/recipes.json"))
     recipes = [r for r in db.values() if r.get("ingredients") and r.get("name")]
     print(f"{len(recipes)} usable recipes")
 

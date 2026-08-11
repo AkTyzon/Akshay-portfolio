@@ -35,8 +35,8 @@ is worth — not something the model decides.
 ## Run it
 ```bash
 pip install pyspark        # needs a JRE (e.g. openjdk 17)
-curl -LO https://archive.ics.uci.edu/static/public/31/covertype.zip
-unzip covertype.zip && gunzip covtype.data.gz
+mkdir -p data && curl -L https://archive.ics.uci.edu/static/public/31/covertype.zip -o data/covertype.zip
+unzip -d data data/covertype.zip && gunzip data/covtype.data.gz
 python train_cascade.py    # writes cascade_results.json
 ```
 Runs on `local[4]` with 4 GB driver memory; the full sweep takes a few minutes.

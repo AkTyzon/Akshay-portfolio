@@ -33,7 +33,7 @@ def main():
     spark.sparkContext.setLogLevel("ERROR")
 
     cols = [f"f{i}" for i in range(54)] + ["label_raw"]
-    df = spark.read.csv("covtype.data", inferSchema=True).toDF(*cols)
+    df = spark.read.csv("data/covtype.data", inferSchema=True).toDF(*cols)
     df = df.withColumn("label", F.col("label_raw") - 1)          # 1..7 -> 0..6
     n = df.count()
     print(f"rows={n:,}  features=54  classes={df.select('label').distinct().count()}")

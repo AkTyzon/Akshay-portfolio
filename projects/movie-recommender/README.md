@@ -26,7 +26,7 @@ rest of their history, and check whether the hidden film returns in the top 10.
 ## Run it
 ```bash
 pip install pandas numpy scipy scikit-learn
-curl -LO https://files.grouplens.org/datasets/movielens/ml-latest-small.zip && unzip ml-latest-small.zip
+mkdir -p data && curl -L https://files.grouplens.org/datasets/movielens/ml-latest-small.zip -o data/ml.zip && unzip -d data data/ml.zip
 python train_movie.py     # writes movie_data.json
 ```
 

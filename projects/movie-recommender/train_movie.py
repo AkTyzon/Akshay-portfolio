@@ -19,8 +19,8 @@ rng = np.random.default_rng(SEED)
 
 
 def load():
-    ratings = pd.read_csv("ml-latest-small/ratings.csv")
-    movies = pd.read_csv("ml-latest-small/movies.csv")
+    ratings = pd.read_csv("data/ml-latest-small/ratings.csv")
+    movies = pd.read_csv("data/ml-latest-small/movies.csv")
     counts = ratings.groupby("movieId").size()
     keep = counts[counts >= MIN_RATINGS].index
     ratings = ratings[ratings.movieId.isin(keep)]

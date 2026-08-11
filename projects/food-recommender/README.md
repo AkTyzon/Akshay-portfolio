@@ -26,6 +26,6 @@ interaction history, which a collaborative model cannot.
 ## Run it
 ```bash
 pip install numpy scikit-learn
-curl -LO https://raw.githubusercontent.com/tabatkins/recipe-db/master/db-recipes.json -o recipes.json
+mkdir -p data && curl -L https://raw.githubusercontent.com/tabatkins/recipe-db/master/db-recipes.json -o data/recipes.json
 python train_food.py      # writes food_data.json
 ```
