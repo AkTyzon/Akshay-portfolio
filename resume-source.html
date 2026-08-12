@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Akshay Kaushik — Machine Learning Engineer</title>
+<style>
+  @page { size: A4; margin: 9mm 12mm; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{
+    font-family:"Charter","Bitstream Charter","Source Serif 4",Georgia,serif;
+    font-size:8.5pt; line-height:1.28; color:#14181d; background:#fff;
+  }
+  a{color:#14181d;text-decoration:none;border-bottom:.4pt solid #b9c2cc}
+
+  /* ---- header ---- */
+  h1{font-size:18pt;letter-spacing:-.02em;font-weight:700;line-height:1.05}
+  .role{font-size:9.6pt;color:#3d4855;margin-top:2.5pt;letter-spacing:.02em}
+  .contact{font-size:8.4pt;color:#3d4855;margin-top:5pt;line-height:1.5}
+  .contact span{white-space:nowrap}
+  .sep{color:#a8b2bd;padding:0 4pt}
+
+  /* ---- sections ---- */
+  h2{
+    font-size:7.9pt;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+    color:#1f4a7a;border-bottom:.9pt solid #1f4a7a;
+    padding-bottom:2pt;margin:6.5pt 0 3.5pt;
+  }
+  .summary{margin-top:6pt;color:#2a333d}
+
+  /* ---- entries ---- */
+  .entry{margin-bottom:4.5pt}
+  .entry:last-child{margin-bottom:0}
+  .row{display:flex;justify-content:space-between;align-items:baseline;gap:10pt}
+  .org{font-weight:700;font-size:10.2pt}
+  .meta{font-size:8.4pt;color:#5a6572;white-space:nowrap}
+  .sub{font-size:8.8pt;color:#3d4855;font-style:italic;margin-top:1pt}
+
+  .proj{font-weight:700;font-size:9pt;margin-top:4pt}
+  .stack{font-size:8.2pt;color:#5a6572;margin-top:1pt}
+  .links{font-size:8.2pt;margin-top:1pt}
+  .links a{color:#1f4a7a;border-bottom-color:#9db4cc}
+
+  ul{list-style:none;margin-top:3pt}
+  li{position:relative;padding-left:8pt;margin-bottom:1.7pt;color:#20272f}
+  li::before{content:"‣";position:absolute;left:0;color:#1f4a7a;font-weight:700}
+  b{font-weight:700;color:#0d1116}
+
+  /* ---- compact two-col blocks ---- */
+  .kv{display:grid;grid-template-columns:70pt 1fr;gap:2pt 8pt;margin-top:1pt}
+  .kv dt{font-weight:700;font-size:8.6pt;color:#3d4855}
+  .kv dd{font-size:9pt;color:#20272f}
+  .edu-row{display:flex;justify-content:space-between;align-items:baseline;gap:10pt;margin-bottom:2.5pt}
+  .edu-row .d{font-weight:700}
+  .edu-row .s{font-size:8.5pt;color:#5a6572;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<h1>Akshay Kaushik</h1>
+<div class="role">Machine Learning Engineer — LLM, RAG &amp; Agent Systems</div>
+<div class="contact">
+  <span>Punjab, India</span><span class="sep">|</span>
+  <span>+91-9876635806</span><span class="sep">|</span>
+  <span>2021pcs1016@iitjammu.ac.in</span><br>
+  <span><a href="https://aktyzon.github.io/Akshay-portfolio/">aktyzon.github.io/Akshay-portfolio</a></span><span class="sep">|</span>
+  <span><a href="https://github.com/AkTyzon">github.com/AkTyzon</a></span><span class="sep">|</span>
+  <span><a href="https://linkedin.com/in/akshay-kaushik-5aa6a8152/">linkedin.com/in/akshay-kaushik</a></span>
+</div>
+
+<p class="summary">
+  Three years building retrieval and agent systems for security operations — natural-language querying
+  over live production data, anomaly detection across millions of daily events, and the evaluation tooling
+  to prove any of it works. Six systems deployed and publicly reachable.
+</p>
+
+<h2>Experience</h2>
+
+<div class="entry">
+  <div class="row">
+    <span class="org">Centre for Development of Telematics (C-DOT)</span>
+    <span class="meta">Aug 2023 – Present · New Delhi</span>
+  </div>
+  <div class="sub">Scientist B — Machine Learning / AI Engineer</div>
+
+  <div class="proj">Natural-Language Security Analytics Platform</div>
+  <ul>
+    <li>Architected a multi-turn <b>ReAct agent</b> translating analyst questions into grounded PostgreSQL and OpenSearch queries, orchestrated as a <b>plan → execute → synthesize → review</b> state machine with selected capabilities executing <b>concurrently</b>, so multi-source questions cost the slower path rather than the sum. Capabilities self-describe their routing rules, availability and data scope, and the planner prompt is generated from that registry — so the system cannot advertise a capability it is unable to run.</li>
+    <li><b>Deploys against a different organization's data with no code change</b> — no table, column or rule name exists in source; the entire surface (<b>40 PostgreSQL tables, ~1,700 described OpenSearch fields</b>) resolves at runtime from per-deployment catalogs, enforced by an automated audit.</li>
+    <li>Designed the correctness layer — review checkpoint for answers built on unresolved intermediate results, deterministic pre-execution query validation, scope-aware judge blocking unsupported claims. Cut worst-case turnaround <b>232s → 66s</b>; wrote <b>62 automated tests from zero</b> plus a regression benchmark diffed before and after every change.</li>
+  </ul>
+
+  <div class="proj">Large-Scale Anomaly Detection</div>
+  <ul>
+    <li>Reduced false-positive security alerts <b>30%</b> via feature engineering and threshold calibration across <b>5M+ events per endpoint per day</b>; shipped containerized inference with automated retraining, plus classifiers detecting processes impersonating legitimate system binaries (allowlists + Levenshtein distance).</li>
+  </ul>
+
+  <div class="proj">Enterprise Knowledge Assistant</div>
+  <ul>
+    <li>LLM-powered question answering over <b>1,000+ internal policy, technical and operational documents</b>, with source citations and downloadable references attached to every answer so staff can verify rather than trust.</li>
+  </ul>
+</div>
+
+<h2>Projects</h2>
+
+<div class="entry">
+  <div class="proj">EvalForge — LLM Evaluation &amp; Benchmarking Platform</div>
+  <div class="stack">FastAPI · PostgreSQL · Qdrant · LangChain · RAGAS · DeepEval · Docker · GCP</div>
+  <div class="links"><a href="https://136-64-84-253.sslip.io/">Live demo</a> · <a href="https://136-64-84-253.sslip.io:8443/docs">Live API</a></div>
+  <ul>
+    <li>Scores every answer on <b>18 metrics</b> — classical NLP (BLEU, ROUGE, METEOR), retrieval quality (Recall@K, MRR, NDCG) and LLM-as-judge faithfulness — with statement-level analysis isolating which claims the retrieved context does not support.</li>
+    <li>Provisioned and operate the full deployment (containerized services, managed relational and vector stores, auto-renewing TLS); its own regression harness caught a token-budgeting change that degraded quality, reverted before it shipped.</li>
+  </ul>
+
+  <div class="proj">Agentic Research Assistant</div>
+  <div class="stack">FastAPI · sentence-transformers · Groq (Llama 3.3 70B) · arXiv API</div>
+  <div class="links"><a href="https://136-64-84-253.sslip.io:8444/">Live demo</a></div>
+  <ul>
+    <li>RAG over arXiv with inline citations, which declines to answer when the retrieved passages do not support one rather than filling the gap.</li>
+    <li>Diagnosed two retrieval defects behind fluent but ungrounded output: unquoted arXiv phrase search returned off-topic papers, and embedding the question without its topic left cosine similarity at <b>0.08</b> — retrieving on topic + question raised it to <b>0.40</b>, no model change.</li>
+  </ul>
+
+  <div class="proj">Additional Projects</div>
+  <ul>
+    <li><b>Cascade Learning on Spark</b> (PySpark, Spark MLlib, 581K rows) — a logistic stage answers what it is confident about and only the residual escalates to a random forest: retains <b>99.1%</b> of the forest's accuracy while avoiding <b>44%</b> of its inference cost, characterised across nine confidence thresholds. <a href="https://aktyzon.github.io/Akshay-portfolio/demos/cascade/">Results</a></li>
+    <li><b>Recommender systems</b> (scikit-learn, MovieLens) — item-item collaborative filtering, leave-last-out: <b>15.5% hit-rate@10 vs a 5.9% popularity baseline</b> (2.63× lift); content-based recipe similarity at <b>96% tag agreement@5 vs 38.5% random</b>. <a href="https://aktyzon.github.io/Akshay-portfolio/demos/movie/">Movie</a> · <a href="https://aktyzon.github.io/Akshay-portfolio/demos/food/">Recipe</a></li>
+  </ul>
+</div>
+
+<h2>Skills</h2>
+<dl class="kv">
+  <dt>ML &amp; AI</dt><dd>LLMs, RAG, agentic systems (ReAct), prompt engineering, anomaly detection, recommender systems, deep learning</dd>
+  <dt>Languages</dt><dd>Python, C++, SQL</dd>
+  <dt>LLM / NLP</dt><dd>PyTorch, LangChain, LangGraph, HuggingFace, sentence-transformers, Qdrant, FAISS, RAGAS, DeepEval</dd>
+  <dt>Data &amp; Infra</dt><dd>PostgreSQL, OpenSearch, PySpark, Spark MLlib, Docker, FastAPI, Linux, Git, GCP (Compute Engine, self-hosted deployments, automated TLS)</dd>
+</dl>
+
+<h2>Education, Awards &amp; Certifications</h2>
+<div class="edu-row">
+  <span><span class="d">M.Tech, Data Science</span> — Indian Institute of Technology (IIT) Jammu</span>
+  <span class="s">CGPA 8.48 · 2023</span>
+</div>
+<div class="edu-row">
+  <span><span class="d">B.Tech, Computer Science</span> — Chandigarh University</span>
+  <span class="s">CGPA 7.8 · 2020</span>
+</div>
+
+<ul style="margin-top:4pt">
+  <li><b>PromptWars</b> (Google for Developers · Build with AI) — top 400 of 2,565 participants, 2026</li>
+  <li>IBM — Develop Generative AI Applications&nbsp; ·&nbsp; IBM — Agentic AI with LangGraph, CrewAI, AutoGen &amp; BeeAI</li>
+</ul>
+
+</body>
+</html>
