@@ -1,6 +1,24 @@
-fastapi==0.115.0
-uvicorn==0.30.6
-pydantic==2.9.2
-requests==2.32.3
-numpy==1.26.4
+# Core
+streamlit==1.36.0
+
+# PDF processing
+pymupdf==1.24.2
+
+# Vector DB
+faiss-cpu==1.8.0
+
+# LLM & LangChain
+langchain==0.2.11
+langchain-community==0.2.10
+langchain-core==0.2.43          # bumped from 0.2.25: langchain-groq needs >=0.2.26
+langchain-groq==0.1.9          # hosted provider (no GPU required)
+langchain-ollama==0.1.0        # local provider, used when GROQ_API_KEY is unset
+
+# Embeddings (CPU) — Groq serves no embedding endpoint
 sentence-transformers==2.7.0
+
+# HTTP requests
+requests==2.32.3
+
+# Utils
+tqdm==4.66.5

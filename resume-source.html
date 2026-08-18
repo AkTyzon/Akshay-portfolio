@@ -4,12 +4,12 @@
 <meta charset="UTF-8">
 <title>Akshay Kaushik — Machine Learning Engineer</title>
 <style>
-  @page { size: A4; margin: 9mm 12mm; }
+  @page { size: A4; margin: 8.5mm 12mm; }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{
     font-family:"Charter","Bitstream Charter","Source Serif 4",Georgia,serif;
-    font-size:8.5pt; line-height:1.28; color:#14181d; background:#fff;
+    font-size:8.4pt; line-height:1.26; color:#14181d; background:#fff;
   }
   a{color:#14181d;text-decoration:none;border-bottom:.4pt solid #b9c2cc}
 
@@ -24,7 +24,7 @@
   h2{
     font-size:7.9pt;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
     color:#1f4a7a;border-bottom:.9pt solid #1f4a7a;
-    padding-bottom:2pt;margin:6.5pt 0 3.5pt;
+    padding-bottom:2pt;margin:6pt 0 3.5pt;
   }
   .summary{margin-top:6pt;color:#2a333d}
 
@@ -69,9 +69,9 @@
 </div>
 
 <p class="summary">
-  Three years building retrieval and agent systems for security operations — natural-language querying
-  over live production data, anomaly detection across millions of daily events, and the evaluation tooling
-  to prove any of it works. Six systems deployed and publicly reachable.
+  Three years building retrieval and agent systems for security operations — natural-language querying over
+  live production data, anomaly detection across millions of daily events, and the evaluation tooling to
+  prove it works. Six systems deployed and publicly reachable.
 </p>
 
 <h2>Experience</h2>
@@ -113,11 +113,11 @@
   </ul>
 
   <div class="proj">Agentic Research Assistant</div>
-  <div class="stack">FastAPI · sentence-transformers · Groq (Llama 3.3 70B) · arXiv API</div>
+  <div class="stack">Streamlit · LangChain · FAISS · PyMuPDF · sentence-transformers · Groq</div>
   <div class="links"><a href="https://136-64-84-253.sslip.io:8444/">Live demo</a></div>
   <ul>
-    <li>RAG over arXiv with inline citations, which declines to answer when the retrieved passages do not support one rather than filling the gap.</li>
-    <li>Diagnosed two retrieval defects behind fluent but ungrounded output: unquoted arXiv phrase search returned off-topic papers, and embedding the question without its topic left cosine similarity at <b>0.08</b> — retrieving on topic + question raised it to <b>0.40</b>, no model change.</li>
+    <li>Multi-paper RAG over <b>full paper text</b> — PDF upload or arXiv fetch by keyword/ID, a FAISS index per paper merged into one store, map-reduce summaries per paper and a cross-paper insight pass.</li>
+    <li>Ported off a local Ollama dependency to run without a GPU — providers are selected by environment, so the original local path still works. The hosted model is <b>resolved against the live catalogue at startup</b> rather than pinned, after a pinned name was retired upstream and silently turned every request into a 404.</li>
   </ul>
 
   <div class="proj">Additional Projects</div>
@@ -145,9 +145,8 @@
   <span class="s">CGPA 7.8 · 2020</span>
 </div>
 
-<ul style="margin-top:4pt">
-  <li><b>PromptWars</b> (Google for Developers · Build with AI) — top 400 of 2,565 participants, 2026</li>
-  <li>IBM — Develop Generative AI Applications&nbsp; ·&nbsp; IBM — Agentic AI with LangGraph, CrewAI, AutoGen &amp; BeeAI</li>
+<ul style="margin-top:3pt">
+  <li><b>PromptWars</b> (Google for Developers) — top 400 of 2,565, 2026&nbsp; ·&nbsp; IBM: Develop Generative AI Applications; Agentic AI with LangGraph, CrewAI, AutoGen &amp; BeeAI</li>
 </ul>
 
 </body>
